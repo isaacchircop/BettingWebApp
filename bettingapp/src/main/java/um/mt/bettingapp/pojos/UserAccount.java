@@ -1,6 +1,6 @@
 package um.mt.bettingapp.pojos;
 
-import java.util.Date;
+import java.util.Calendar;
 
 public class UserAccount {
 	
@@ -8,15 +8,15 @@ public class UserAccount {
 	private String password;
 	private String name;
 	private String surname;
-	private Date date;
+	private Calendar date;
 	private boolean isPremium;
 	private String ccNumber;
-	private Date ccExpiry;
+	private Calendar ccExpiry;
 	private String cvv;
 	
 	public UserAccount(String username, String password, String name,
-			String surname, Date date, boolean isPremium, String ccNumber,
-			Date ccExpiry, String cvv) {
+			String surname, Calendar date, boolean isPremium, String ccNumber,
+			Calendar ccExpiry, String cvv) {
 		this.username = username;
 		this.password = password;
 		this.name = name;
@@ -60,11 +60,11 @@ public class UserAccount {
 		this.surname = surname;
 	}
 
-	public Date getDate() {
+	public Calendar getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(Calendar date) {
 		this.date = date;
 	}
 
@@ -84,11 +84,11 @@ public class UserAccount {
 		this.ccNumber = ccNumber;
 	}
 
-	public Date getCcExpiry() {
+	public Calendar getCcExpiry() {
 		return ccExpiry;
 	}
 
-	public void setCcExpiry(Date ccExpiry) {
+	public void setCcExpiry(Calendar ccExpiry) {
 		this.ccExpiry = ccExpiry;
 	}
 

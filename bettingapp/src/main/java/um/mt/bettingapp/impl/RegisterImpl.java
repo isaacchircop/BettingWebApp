@@ -1,7 +1,6 @@
 package um.mt.bettingapp.impl;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,8 +20,8 @@ public class RegisterImpl implements Register {
 	 * @return A boolean value stating whether the account was successfully created or not
 	 */
 	public boolean registerUser(String username, String password,
-			String name, String surname, Date date, boolean isPremium,
-			String ccNumber, Date ccExpiry, String cvv) throws IllegalArgumentException {
+			String name, String surname, Calendar date, boolean isPremium,
+			String ccNumber, Calendar ccExpiry, String cvv) throws IllegalArgumentException {
 		
 		validateUsername(username);
 		validatePassword(password);
@@ -52,17 +51,15 @@ public class RegisterImpl implements Register {
 	}
 	
 	public void validateNameSurname(String string) {
-		if (string.length() == 0 || !string.matches("/^[A-z/s]+$/")) {
+		if (string.length() == 0 || !string.matches("^[ A-z]+$")) {
 			throw new IllegalArgumentException("Name and Surname must be non empty and contain alphabetical and whitespace characters");
 		}
 	}
 	
-	public void validateDOB(Date date) {
+	public void validateDOB(Calendar date) {
 		Calendar today = Calendar.getInstance();
-		Calendar dob = Calendar.getInstance();
-		dob.setTime(date);
 		
-		if (today.get(Calendar.YEAR) - dob.get(Calendar.YEAR) < 18) {
+		if (today.get(Calendar.YEAR) - date.get(Calendar.YEAR) < 18) {
 			throw new IllegalArgumentException("User must be at least 18 years of age");
 		}
 	}
@@ -75,6 +72,8 @@ public class RegisterImpl implements Register {
 				// Visa
 				if (ccNumber.length() == 13 || ccNumber.length() == 16) {
 					isLuhnValid(ccNumber);
+				} else {
+					throw new IllegalArgumentException("Credit Card Number is of invalid length");
 				}
 				
 			} else {
@@ -144,18 +143,16 @@ public class RegisterImpl implements Register {
 		}
 	}
 	
-	public void validateCCExpiry(Date ccExpiry) {
+	public void validateCCExpiry(Calendar ccExpiry) {
 		Calendar today = Calendar.getInstance();
-		Calendar expiry = Calendar.getInstance();
-		expiry.setTime(ccExpiry);
 		
-		if(today.after(expiry)) {
+		if(today.after(ccExpiry)) {
 			throw new IllegalArgumentException("Credit Card Expiry date must be in the future");
 		}
 	}
 	
 	public void validateCVV(String cvv) {
-		if (cvv.length() != 3 && !cvv.matches("^[0-9]+$")) {
+		if (cvv.length() != 3 || !cvv.matches("^[0-9]+$")) {
 			throw new IllegalArgumentException("CVV must be a 3 digit numeric code");
 		}
 	}

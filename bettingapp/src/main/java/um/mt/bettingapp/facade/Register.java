@@ -1,13 +1,19 @@
 package um.mt.bettingapp.facade;
 
-import java.util.Date;
-
-import um.mt.bettingapp.pojos.UserAccount;
+import java.util.Calendar;
 
 public interface Register {
 
 	public boolean registerUser(String username, String password, String name,
-			String surname, Date date, boolean isPremium, String ccNumber,
-			Date ccExpiry, String cvv) throws IllegalArgumentException;
+			String surname, Calendar date, boolean isPremium, String ccNumber,
+			Calendar ccExpiry, String cvv) throws IllegalArgumentException;
 	
+	public void validateUsername(String username);
+	public void validatePassword(String password);
+	public void validateNameSurname(String string);
+	public void validateDOB(Calendar date);
+	public void validateCCNumber(String ccNumber);
+	public void validateCCExpiry(Calendar ccExpiry);
+	public void validateCVV(String cvv);
+	public void isLuhnValid(String cardNumber);
 }
