@@ -1,5 +1,7 @@
 package um.mt.bettingapp.impl;
 
+import static org.junit.Assert.*;
+
 import java.util.Calendar;
 
 import org.junit.After;
@@ -24,12 +26,20 @@ public class RegisterImplTest {
 	
 	@Test
 	public void validUsernameTest() {
-		
+		reg.validateUsername("Joe123");
 	}
 	
-	@Test
+	@Test(expected = IllegalArgumentException.class)
 	public void invalidUsernameTest() {
+		Calendar dob = Calendar.getInstance();
+		Calendar expiry = Calendar.getInstance();
+		dob.set(1992, 12, 8);
+		expiry.set(2022, 10, 3);
 		
+		boolean registerUser = reg.registerUser("Joe123", "Pass1234", "Joe", "Borg", dob, false, "346026622135281", expiry, "123");
+		assertTrue(registerUser);
+		
+		reg.validateUsername("Joe123");
 	}
 	
 	@Test
@@ -50,6 +60,11 @@ public class RegisterImplTest {
 	@Test
 	public void validNameSurnameTest_AlphaOnly() {
 		reg.validateNameSurname("Joseph");
+	}
+	
+	@Test (expected = IllegalArgumentException.class)
+	public void invalidNameSurnameTest_EmptyString() {
+		reg.validateNameSurname("");
 	}
 	
 	@Test (expected = IllegalArgumentException.class)
@@ -133,6 +148,12 @@ public class RegisterImplTest {
 	@Test (expected = IllegalArgumentException.class)
 	public void luhnFail() {
 		String cardNumber = "5468610960092758";
+		reg.isLuhnValid(cardNumber);
+	}
+	
+	@Test (expected = IllegalArgumentException.class)
+	public void luhnFail_InvalidChecksum() {
+		String cardNumber = "0000000000000000";
 		reg.isLuhnValid(cardNumber);
 	}
 	

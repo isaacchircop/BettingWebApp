@@ -32,9 +32,9 @@ public class RegisterImpl implements Register {
 		validateCCExpiry(ccExpiry);
 		validateCVV(cvv);
 		
-		UserAccount account = users.put(username, new UserAccount(username, password, name, surname, date, isPremium, ccNumber, ccExpiry, cvv));
+		UserAccount previous = users.put(username, new UserAccount(username, password, name, surname, date, isPremium, ccNumber, ccExpiry, cvv));
 		
-		return account != null;
+		return previous == null;
 		
 	}
 	
@@ -120,21 +120,23 @@ public class RegisterImpl implements Register {
 		
 		int checksum = 0;
 		
+		// Reverse String
+		ccNumber = new StringBuilder(ccNumber).reverse().toString();
+		
 		for (int i = 0; i < ccNumber.length(); i++) {
 			int digit = Character.getNumericValue(ccNumber.charAt(i));
 			
-			if (i % 2 == 0) {
+			if ((i+1) % 2 == 0) {
 				// Even Index
 				digit = digit * 2;
+				
+				if (digit > 9) {
+					digit -= 9;
+				}
+				
 			}
 			
-			String digitString = Integer.toString(digit);
-			if (digitString.length() > 2) {
-				checksum += Character.getNumericValue(digitString.charAt(0));
-				checksum += Character.getNumericValue(digitString.charAt(1));
-			} else {
-				checksum += digit;
-			}
+			checksum += digit;
 			
 		}
 		
