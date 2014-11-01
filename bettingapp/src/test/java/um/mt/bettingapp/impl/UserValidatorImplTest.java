@@ -1,6 +1,10 @@
 package um.mt.bettingapp.impl;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import java.util.Calendar;
 
@@ -8,191 +12,203 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import um.mt.bettingapp.facade.Register;
+import um.mt.bettingapp.pojos.UserAccount;
 
-public class RegisterImplTest {
+public class UserValidatorImplTest {
 
-	Register reg;
+	UserValidatorImpl validator;
 	
 	@Before
 	public void setup(){
-		reg = new RegisterImpl();
+		validator = new UserValidatorImpl();
 	};
 	
 	@After
 	public void teardown(){
-		reg = null;
+		validator = null;
 	};
 	
 	@Test
 	public void validUsernameTest() {
-		reg.validateUsername("Joe123");
+		UserMgmtImpl userManager = mock(UserMgmtImpl.class);
+		when(userManager.getUserAccount(anyString())).thenReturn(null);
+		
+		validator.setUserManager(userManager);
+		
+		String userName = "Joe123";
+		assertTrue(validator.isUserNameValid(userName));
 	}
 	
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void invalidUsernameTest() {
-		Calendar dob = Calendar.getInstance();
-		Calendar expiry = Calendar.getInstance();
-		dob.set(1992, 12, 8);
-		expiry.set(2022, 10, 3);
+		UserAccount account = mock(UserAccount.class);
+		UserMgmtImpl userManager = mock(UserMgmtImpl.class);
+		when(userManager.getUserAccount(anyString())).thenReturn(account);
 		
-		boolean registerUser = reg.registerUser("Joe123", "Pass1234", "Joe", "Borg", dob, false, "346026622135281", expiry, "123");
-		assertTrue(registerUser);
+		validator.setUserManager(userManager);
 		
-		reg.validateUsername("Joe123");
+		String userName = "Joe123";
+		assertFalse(validator.isUserNameValid(userName));
 	}
 	
 	@Test
 	public void validPasswordTest() {
-		reg.validatePassword("Password123");
+		String password = "Password123";
+		assertTrue(validator.isPasswordValid(password));
 	}
 	
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void invalidPasswordTest() {
-		reg.validatePassword("Pass123");
+		String password = "Pass123";
+		assertFalse(validator.isPasswordValid(password));
 	}
 	
 	@Test
 	public void validNameSurnameTest_withWS() {
-		reg.validateNameSurname("Mr Bean");
+		String name = "Mr Bean";
+		assertTrue(validator.isNameSurnameValid(name));
 	}
 	
 	@Test
 	public void validNameSurnameTest_AlphaOnly() {
-		reg.validateNameSurname("Joseph");
+		String name = "Joseph";
+		assertTrue(validator.isNameSurnameValid(name));
 	}
 	
-	@Test (expected = IllegalArgumentException.class)
+	@Test
 	public void invalidNameSurnameTest_EmptyString() {
-		reg.validateNameSurname("");
+		String name = "";
+		assertFalse(validator.isNameSurnameValid(name));
 	}
 	
-	@Test (expected = IllegalArgumentException.class)
+	@Test
 	public void invalidNameSurnameTest_ContainsNumeric() {
-		reg.validateNameSurname("Joseph1");
+		String name = "Joseph1";
+		assertFalse(validator.isNameSurnameValid(name));
 	}
 	
-	@Test (expected = IllegalArgumentException.class)
+	@Test
 	public void invalidNameSurnameTest_ContainsSymbol() {
-		reg.validateNameSurname("Mr. Bean");
+		String name = "Mr. Bean";
+		assertFalse(validator.isNameSurnameValid(name));
 	}
 	
 	@Test
 	public void validDOB() {
 		Calendar dob = Calendar.getInstance();
 		dob.set(1994, 11, 14);
-		reg.validateDOB(dob);
+		assertTrue(validator.isDOBValid(dob));
 	}
 	
-	@Test (expected = IllegalArgumentException.class)
+	@Test
 	public void invalidDOB() {
 		Calendar dob = Calendar.getInstance();
 		dob.set(2000, 11, 14);
-		reg.validateDOB(dob);
+		assertFalse(validator.isDOBValid(dob));
 	}
 	
 	@Test
 	public void validCreditCardNumberTest_AmericanExpress() {
 		String cardNumber = "346026622135281";
-		reg.validateCCNumber(cardNumber);
+		assertTrue(validator.isCCNumberValid(cardNumber));
 	}
 	
 	@Test
 	public void validCreditCardNumberTest_Visa16Digit() {
 		String cardNumber = "4929373633541769";
-		reg.validateCCNumber(cardNumber);
+		assertTrue(validator.isCCNumberValid(cardNumber));
 	}
 	
 	@Test
 	public void validCreditCardNumberTest_Visa13Digit() {
 		String cardNumber = "4261336955079";
-		reg.validateCCNumber(cardNumber);
+		assertTrue(validator.isCCNumberValid(cardNumber));
 	}
 	
 	@Test
 	public void validCreditCardNumberTest_MasterCard() {
 		String cardNumber = "5468610960992758";
-		reg.validateCCNumber(cardNumber);
+		assertTrue(validator.isCCNumberValid(cardNumber));
 	}
 	
-	@Test (expected = IllegalArgumentException.class)
+	@Test
 	public void invalidCreditCardNumberTest_UnrecognisedCardType() {
 		String cardNumber = "2468610960992758";
-		reg.validateCCNumber(cardNumber);
+		assertFalse(validator.isCCNumberValid(cardNumber));
 	}
 	
-	@Test (expected = IllegalArgumentException.class)
+	@Test
 	public void invalidCreditCardNumberTest_InvalidAmericanExpressLength() {
 		String cardNumber = "3460262135281";
-		reg.validateCCNumber(cardNumber);
+		assertFalse(validator.isCCNumberValid(cardNumber));
 	}
 	
-	@Test (expected = IllegalArgumentException.class)
+	@Test
 	public void invalidCreditCardNumberTest_InvalidVisaLength() {
 		String cardNumber = "468610960992758";
-		reg.validateCCNumber(cardNumber);
+		assertFalse(validator.isCCNumberValid(cardNumber));
 	}
 	
-	@Test (expected = IllegalArgumentException.class)
+	@Test
 	public void invalidCreditCardNumberTest_InvalidMasterCardLength() {
 		String cardNumber = "54686109609927";
-		reg.validateCCNumber(cardNumber);
+		assertFalse(validator.isCCNumberValid(cardNumber));
 	}
 	
 	@Test
 	public void luhnPass() {
 		String cardNumber = "5468610960992758";
-		reg.isLuhnValid(cardNumber);
+		assertTrue(validator.isLuhnValid(cardNumber));
 	}
 	
-	@Test (expected = IllegalArgumentException.class)
+	@Test
 	public void luhnFail() {
 		String cardNumber = "5468610960092758";
-		reg.isLuhnValid(cardNumber);
+		assertFalse(validator.isLuhnValid(cardNumber));
 	}
 	
-	@Test (expected = IllegalArgumentException.class)
+	@Test
 	public void luhnFail_InvalidChecksum() {
 		String cardNumber = "0000000000000000";
-		reg.isLuhnValid(cardNumber);
+		assertFalse(validator.isLuhnValid(cardNumber));
 	}
 	
-	@Test (expected = IllegalArgumentException.class)
+	@Test
 	public void invalidCreditCardNumberTest_NotNumeric() {
 		String cardNumber = "54686L0960092758";
-		reg.validateCCNumber(cardNumber);
+		assertFalse(validator.isCCNumberValid(cardNumber));
 	}
 	
 	@Test 
 	public void validCreditCardExpiryTest() {
 		Calendar expiry = Calendar.getInstance();
 		expiry.set(2024, 11, 1);
-		reg.validateCCExpiry(expiry);
+		assertTrue(validator.isCCExpiryValid(expiry));
 	}
 	
-	@Test (expected = IllegalArgumentException.class)
+	@Test
 	public void invalidCreditCardExpiryTest() {
 		Calendar expiry = Calendar.getInstance();
 		expiry.set(2014, 9, 1);
-		reg.validateCCExpiry(expiry);
+		assertFalse(validator.isCCExpiryValid(expiry));
 	}
 	
 	@Test
 	public void validCVVTest() {
 		String cvv = "159";
-		reg.validateCVV(cvv);
+		assertTrue(validator.isCVVValid(cvv));
 	}
 	
-	@Test (expected = IllegalArgumentException.class)
+	@Test
 	public void invalidCVVTest_InvalidLength() {
 		String cvv = "1597";
-		reg.validateCVV(cvv);
+		assertFalse(validator.isCVVValid(cvv));
 	}
 	
-	@Test (expected = IllegalArgumentException.class)
+	@Test
 	public void invalidCVVTest_NotNumeric() {
 		String cvv = "15G";
-		reg.validateCVV(cvv);
+		assertFalse(validator.isCVVValid(cvv));
 	}
 	
 }

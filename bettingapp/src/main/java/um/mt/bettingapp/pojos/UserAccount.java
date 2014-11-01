@@ -14,6 +14,10 @@ public class UserAccount {
 	private Calendar ccExpiry;
 	private String cvv;
 	
+	private boolean isBlocked;
+	private int loginTries;
+	private long blockTime;
+	
 	public UserAccount(String username, String password, String name,
 			String surname, Calendar date, boolean isPremium, String ccNumber,
 			Calendar ccExpiry, String cvv) {
@@ -26,6 +30,8 @@ public class UserAccount {
 		this.ccNumber = ccNumber;
 		this.ccExpiry = ccExpiry;
 		this.cvv = cvv;
+		this.isBlocked = false;
+		this.loginTries = 0;
 	}
 
 	public String getUsername() {
@@ -99,7 +105,27 @@ public class UserAccount {
 	public void setCvv(String cvv) {
 		this.cvv = cvv;
 	}
+
+	public boolean isBlocked() {
+		return isBlocked;
+	}
+
+	public void block() {
+		this.isBlocked = true;
+		this.blockTime = System.currentTimeMillis();
+	}
 	
+	public void unblock() {
+		this.isBlocked = false;
+		this.blockTime = 0;
+	}
 	
+	public int incrInvalidLogin() {
+		return ++this.loginTries;
+	}
+	
+	public long unblkTimeLeft() {
+		return (this.blockTime == 0) ? 0 : System.currentTimeMillis() - this.blockTime;
+	}
 	
 }
