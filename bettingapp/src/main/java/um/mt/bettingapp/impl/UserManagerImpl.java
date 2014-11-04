@@ -4,18 +4,27 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
-import um.mt.bettingapp.facade.UserMgmt;
+import um.mt.bettingapp.facade.LoginManager;
+import um.mt.bettingapp.facade.UserManager;
 import um.mt.bettingapp.facade.UserValidator;
 import um.mt.bettingapp.pojos.UserAccount;
 
-public class UserMgmtImpl implements UserMgmt {
-	
-	private final long UNBLOCKTIME = 300000;
+public class UserManagerImpl implements UserManager {
 	
 	private UserValidator validator;
+	private LoginManager loginManager;
 	private static Map<String, UserAccount> users = new HashMap<String, UserAccount>();
 	
+	// Setters
+	public void setUserValidator(UserValidator validator) {
+		this.validator = validator;
+	}
 	
+	public void setLoginManager(LoginManager manager) {
+		this.loginManager = manager;
+	}
+	
+	// Class Operations
 	public void registerUser(String username, String password,
 			String name, String surname, Calendar date, boolean isPremium,
 			String ccNumber, Calendar ccExpiry, String cvv) throws IllegalArgumentException {
@@ -33,31 +42,7 @@ public class UserMgmtImpl implements UserMgmt {
 	public boolean login(String username, String password) {
 		
 		UserAccount account = users.get(username);
-		
-		if (account == null) {
-			throw new IllegalArgumentException("Account with specified username does not exist");
-		}
-		
-		if (account.isBlocked()) {
-			
-			if (account.unblkTimeLeft() >= UNBLOCKTIME) {
-				account.unblock();
-			} else {
-				throw new IllegalArgumentException("Account is blocked.  Try again within " + account.unblkTimeLeft() / 1000 + " seconds");
-			}
-		}
-		
-		if (!account.getPassword().equals(password)) {
-			int tries = account.incrInvalidLogin();
-			if (tries > 3) {
-				account.block();
-				throw new IllegalArgumentException("Account blocked.  Try again within 5 minutes");
-			} else {
-				throw new IllegalArgumentException("Invalid Password.  Number of tries left: " + (3 - tries));
-			}
-		}
-		
-		return true;
+		return loginManager.login(account, password);
 		
 	}
 	
@@ -67,6 +52,10 @@ public class UserMgmtImpl implements UserMgmt {
 	
 	public UserAccount getUserAccount(String username) {
 		return users.get(username);
+	}
+	
+	public int getNumberOfUsers() {
+		return users.size();
 	}
 	
 }

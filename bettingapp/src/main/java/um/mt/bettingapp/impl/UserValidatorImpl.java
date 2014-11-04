@@ -7,14 +7,14 @@ import um.mt.bettingapp.pojos.UserAccount;
 
 public class UserValidatorImpl implements UserValidator {
 	
-	private UserMgmtImpl userManager;
+	private UserManagerImpl userManager;
 	private String errorMessage;
 	
 	public UserValidatorImpl() {
 		this.errorMessage = "";
 	}
 	
-	public void setUserManager(UserMgmtImpl manager) {
+	public void setUserManager(UserManagerImpl manager) {
 		userManager = manager;
 	}
 	
@@ -24,13 +24,13 @@ public class UserValidatorImpl implements UserValidator {
 	
 	public boolean validateAccount(UserAccount account) {
 		
-		boolean isAccountValid = isUserNameValid(account.getUsername()) ||
-								isPasswordValid(account.getPassword()) ||
-								isNameSurnameValid(account.getName()) ||
-								isNameSurnameValid(account.getSurname()) ||
-								isDOBValid(account.getDate()) ||
-								isCCNumberValid(account.getCcNumber()) ||
-								isCCExpiryValid(account.getCcExpiry()) ||
+		boolean isAccountValid = isUserNameValid(account.getUsername()) &&
+								isPasswordValid(account.getPassword()) &&
+								isNameSurnameValid(account.getName()) &&
+								isNameSurnameValid(account.getSurname()) &&
+								isDOBValid(account.getDate()) &&
+								isCCNumberValid(account.getCcNumber()) &&
+								isCCExpiryValid(account.getCcExpiry()) &&
 								isCVVValid(account.getCvv());
 		
 		if (isAccountValid) {

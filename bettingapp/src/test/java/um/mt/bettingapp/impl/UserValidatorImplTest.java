@@ -30,7 +30,7 @@ public class UserValidatorImplTest {
 	
 	@Test
 	public void validUsernameTest() {
-		UserMgmtImpl userManager = mock(UserMgmtImpl.class);
+		UserManagerImpl userManager = mock(UserManagerImpl.class);
 		when(userManager.getUserAccount(anyString())).thenReturn(null);
 		
 		validator.setUserManager(userManager);
@@ -42,7 +42,7 @@ public class UserValidatorImplTest {
 	@Test
 	public void invalidUsernameTest() {
 		UserAccount account = mock(UserAccount.class);
-		UserMgmtImpl userManager = mock(UserMgmtImpl.class);
+		UserManagerImpl userManager = mock(UserManagerImpl.class);
 		when(userManager.getUserAccount(anyString())).thenReturn(account);
 		
 		validator.setUserManager(userManager);

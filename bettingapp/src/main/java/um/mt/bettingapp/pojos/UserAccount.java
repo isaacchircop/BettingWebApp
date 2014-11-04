@@ -120,8 +120,12 @@ public class UserAccount {
 		this.blockTime = 0;
 	}
 	
-	public int incrInvalidLogin() {
-		return ++this.loginTries;
+	public void incrLoginTries() {
+		this.loginTries++;
+	}
+	
+	public int getLoginTries() {
+		return this.loginTries;
 	}
 	
 	public long unblkTimeLeft() {
