@@ -1,17 +1,21 @@
 package um.mt.bettingapp.facade;
 
 import java.util.Calendar;
+import java.util.List;
+
+import um.mt.bettingapp.pojos.Bet;
 
 public interface UserManager {
 
 	// Getters
 	public int getNumberOfUsers();
+	public List<Bet> getBetsForUser(String username);
 	
 	// Setters
 	public void setUserValidator(UserValidator validator);
 	
 	// Class Operators
-	public void registerUser(String username, String password, String name,
+	public boolean registerUser(String username, String password, String name,
 			String surname, Calendar date, boolean isPremium, String ccNumber,
 			Calendar ccExpiry, String cvv) throws IllegalArgumentException;
 	
