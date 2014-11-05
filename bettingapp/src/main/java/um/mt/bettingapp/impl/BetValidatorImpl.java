@@ -14,49 +14,48 @@ public class BetValidatorImpl implements BetValidator{
 	private final double TOTAL_BET_LIMIT = 3;
 	private UserManager userManager;
 	
+	// Setters
 	public void setUserManager(UserManager userManager) {
 		this.userManager = userManager;
 	}
 	
+	// Class Operations
 	public boolean validateBet(UserAccount account, RiskLevel riskLevel, double amount) {
 		
 		return validateRisk(account, riskLevel) && 
 				validateAmount(account, amount) && 
-				validateCumulative(account, amount);
+				account.isPremium() ? validateCumulative(account, amount) 
+									: validateNumberOfBets(account);
 		
 	}
 	
 	public boolean validateCumulative(UserAccount account, double amount) {
-		
 		List<Bet> bets = userManager.getBetsForUser(account.getUsername());
 		
-		if (account.isPremium()) {
-			double total = 0;
-			for (Bet bet : bets) {
-				total += bet.getAmount();
-			}
-			return (total + amount) <= TOTAL_AMOUNT_LIMIT;
-		} else {
-			return bets.size() < TOTAL_BET_LIMIT;
+		double total = 0;
+		for (Bet bet : bets) {
+			total += bet.getAmount();
 		}
+		
+		return (total + amount) <= TOTAL_AMOUNT_LIMIT;
+	}
+	
+	public boolean validateNumberOfBets(UserAccount account) {
+		
+		List<Bet> bets = userManager.getBetsForUser(account.getUsername());
+		return bets.size() < TOTAL_BET_LIMIT;
 		
 	}
 	
 	public boolean validateRisk(UserAccount account, RiskLevel riskLevel) {
 		
-		if (!account.isPremium()) {
-			return riskLevel == RiskLevel.LOW;
-		} else return true;
+		return !account.isPremium() ? riskLevel == RiskLevel.LOW : riskLevel != null;
 		
 	}
 	
 	public boolean validateAmount(UserAccount account, double amount) {
 		
-		if (!account.isPremium()) {
-			return amount < 5;
-		} else {
-			return true;
-		}
+		return !account.isPremium() ? amount <= 5 && amount > 0: amount > 0;
 		
 	}
 	

@@ -50,7 +50,7 @@ public class UserManagerImplTest {
 		assertTrue("Size of mapping should be incremented by 1", usersAfter == usersBefore + 1);
 	}
 	
-	@Test (expected = IllegalArgumentException.class)
+	@Test
 	public void userRegistrationTest_Unsuccessful() {
 		// Create mock user validator
 		UserValidator validator = mock(UserValidator.class);
@@ -64,7 +64,7 @@ public class UserManagerImplTest {
 		ccExpiry.set(2016, 12, 12);
 		
 		// Start Test
-		manager.registerUser("Username", "Password123", "Name", "Surname", date, false, "346026622135281", ccExpiry, "123");
+		assertFalse(manager.registerUser("Username", "Password123", "Name", "Surname", date, false, "346026622135281", ccExpiry, "123"));
 	}
 	
 }

@@ -2,6 +2,7 @@ package um.mt.bettingapp.impl;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -12,6 +13,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import um.mt.bettingapp.facade.UserManager;
 import um.mt.bettingapp.pojos.UserAccount;
 
 public class UserValidatorImplTest {
@@ -209,6 +211,39 @@ public class UserValidatorImplTest {
 	public void invalidCVVTest_NotNumeric() {
 		String cvv = "15G";
 		assertFalse(validator.isCVVValid(cvv));
+	}
+	
+	@Test
+	public void validateAccont_TestValidAccountRegistration() {
+		
+		// Setup of values
+		Calendar date = Calendar.getInstance();
+		Calendar ccExpiry = Calendar.getInstance();
+		date.set(1990, 5, 30);
+		ccExpiry.set(2016, 12, 12);
+		
+		UserManager manager = mock(UserManager.class);
+		when(manager.getUserAccount(anyString())).thenReturn(null);
+		validator.setUserManager(manager);
+		
+		UserAccount account = new UserAccount("Username", "Password123", "Name", "Surname", date, false, "346026622135281", ccExpiry, "123");
+		assertTrue(validator.validateAccount(account));
+	}
+	
+	@Test
+	public void validateAccont_TestInvalidAccountRegistration() {
+		// Setup of values
+		Calendar date = Calendar.getInstance();
+		Calendar ccExpiry = Calendar.getInstance();
+		date.set(1990, 5, 30);
+		ccExpiry.set(2016, 12, 12);
+		
+		UserManager manager = mock(UserManager.class);
+		when(manager.getUserAccount(anyString())).thenReturn(any(UserAccount.class));
+		validator.setUserManager(manager);
+		
+		UserAccount account = new UserAccount("Username", "Pass123", "Name", "Surname", date, false, "346026622135281", ccExpiry, "123");
+		assertFalse(validator.validateAccount(account));
 	}
 	
 }

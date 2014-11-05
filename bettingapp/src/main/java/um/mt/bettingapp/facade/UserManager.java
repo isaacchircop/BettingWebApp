@@ -4,12 +4,14 @@ import java.util.Calendar;
 import java.util.List;
 
 import um.mt.bettingapp.pojos.Bet;
+import um.mt.bettingapp.pojos.UserAccount;
 
 public interface UserManager {
 
 	// Getters
 	public int getNumberOfUsers();
 	public List<Bet> getBetsForUser(String username);
+	public UserAccount getUserAccount(String username);
 	
 	// Setters
 	public void setUserValidator(UserValidator validator);

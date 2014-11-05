@@ -2,19 +2,20 @@ package um.mt.bettingapp.impl;
 
 import java.util.Calendar;
 
+import um.mt.bettingapp.facade.UserManager;
 import um.mt.bettingapp.facade.UserValidator;
 import um.mt.bettingapp.pojos.UserAccount;
 
 public class UserValidatorImpl implements UserValidator {
 	
-	private UserManagerImpl userManager;
+	private UserManager userManager;
 	private String errorMessage;
 	
 	public UserValidatorImpl() {
 		this.errorMessage = "";
 	}
 	
-	public void setUserManager(UserManagerImpl manager) {
+	public void setUserManager(UserManager manager) {
 		userManager = manager;
 	}
 	

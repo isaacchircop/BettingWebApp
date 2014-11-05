@@ -2,7 +2,10 @@ package um.mt.bettingapp.impl;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import org.junit.After;
 import org.junit.Before;
@@ -61,10 +64,11 @@ public class LoginManagerImplTest {
 	@Test
 	public void isAccountAccessible_TestExpiredBlockedTime(){
 		UserAccount account = mock(UserAccount.class);
-		when(account.isBlocked()).thenReturn(false);
+		when(account.isBlocked()).thenReturn(true);
 		when(account.unblkTimeLeft()).thenReturn((long)300000);
 		
 		assertTrue("Account should be unblocked and accessed", manager.isAccountAccessible(account));
+		verify(account).unblock();
 	}
 	
 	@Test

@@ -62,7 +62,7 @@ public class UserManagerImpl implements UserManager {
 	// Class Operations
 	public boolean registerUser(String username, String password,
 			String name, String surname, Calendar date, boolean isPremium,
-			String ccNumber, Calendar ccExpiry, String cvv) throws IllegalArgumentException {
+			String ccNumber, Calendar ccExpiry, String cvv) {
 		
 		UserAccount newAccount = new UserAccount(username, password, name, surname, date, 
 												 isPremium, ccNumber, ccExpiry, cvv);

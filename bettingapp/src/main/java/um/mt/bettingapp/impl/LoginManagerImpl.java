@@ -5,7 +5,7 @@ import um.mt.bettingapp.pojos.UserAccount;
 
 public class LoginManagerImpl implements LoginManager {
 	
-	private final int UNBLOCKTIME = 300000;
+	private final long UNBLOCKTIME = 300000;
 	private String errorMessage;
 	
 	public boolean login(UserAccount account, String password) {
