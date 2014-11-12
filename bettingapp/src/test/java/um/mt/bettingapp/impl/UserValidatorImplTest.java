@@ -97,8 +97,38 @@ public class UserValidatorImplTest {
 	
 	@Test
 	public void validDOB() {
+		//January is month 0
 		Calendar dob = Calendar.getInstance();
 		dob.set(1994, 11, 14);
+		assertTrue(validator.isDOBValid(dob));
+	}
+	
+	@Test
+	public void invalidDOBSameYearUpcomingMonth() {
+		Calendar dob = Calendar.getInstance();
+		dob.set(1996, 11, 01);
+		assertFalse(validator.isDOBValid(dob));
+	}
+	
+	@Test
+	public void invalidDOBSameYearSameMonthUpcomingDay() {
+		Calendar dob = Calendar.getInstance();
+		dob.set(1996, 10, 30);
+		assertFalse(validator.isDOBValid(dob));
+	}
+	
+	@Test
+	public void validDOBSameYearSameMonth() {
+		Calendar dob = Calendar.getInstance();
+		dob.set(Calendar.YEAR, 1996);
+		dob.set(Calendar.DAY_OF_MONTH, 5);
+		assertTrue(validator.isDOBValid(dob));
+	}
+	
+	@Test
+	public void validDOBSameYearSameMonthSameDay() {
+		Calendar dob = Calendar.getInstance();
+		dob.set(Calendar.YEAR, 1996);
 		assertTrue(validator.isDOBValid(dob));
 	}
 	

@@ -69,7 +69,21 @@ public class UserValidatorImpl implements UserValidator {
 		if (today.get(Calendar.YEAR) - date.get(Calendar.YEAR) < 18) {
 			errorMessage = "User must be at least 18 years of age";
 			return false;
-		} else return true;
+		} else if (today.get(Calendar.YEAR) - date.get(Calendar.YEAR) == 18)
+			if(date.get(Calendar.MONTH) > today.get(Calendar.MONTH))
+			{
+				errorMessage = "User must be at least 18 years of age";
+				return false;
+			}
+			else if((date.get(Calendar.MONTH) == today.get(Calendar.MONTH))&&(date.get(Calendar.DAY_OF_MONTH)>today.get(Calendar.DAY_OF_MONTH)))
+			{
+				errorMessage = "User must be at least 18 years of age";
+				return false;
+			}
+			else
+			return true;
+		else
+			return true;
 	}
 	
 	public boolean isCCNumberValid(String ccNumber) {

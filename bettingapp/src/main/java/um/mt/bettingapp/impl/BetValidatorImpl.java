@@ -21,7 +21,6 @@ public class BetValidatorImpl implements BetValidator{
 	
 	// Class Operations
 	public boolean validateBet(UserAccount account, RiskLevel riskLevel, double amount) {
-		
 		return validateRisk(account, riskLevel) && 
 				validateAmount(account, amount) && 
 				account.isPremium() ? validateCumulative(account, amount) 
@@ -48,13 +47,13 @@ public class BetValidatorImpl implements BetValidator{
 	}
 	
 	public boolean validateRisk(UserAccount account, RiskLevel riskLevel) {
-		
+		//Free users can only place low-risk bets
 		return !account.isPremium() ? riskLevel == RiskLevel.LOW : riskLevel != null;
 		
 	}
 	
 	public boolean validateAmount(UserAccount account, double amount) {
-		
+		//Free users are capped to EUR 5 per bet
 		return !account.isPremium() ? amount <= 5 && amount > 0: amount > 0;
 		
 	}
