@@ -37,6 +37,10 @@ public class UserManagerImpl implements UserManager {
 		this.betValidator = validator;
 	}
 	
+	public void setLoggedinUser(UserAccount useraccount) {
+		this.loggedInUser = useraccount;
+	}
+	
 	// Getters
 	
 	public UserAccount getUserAccount(String username) {

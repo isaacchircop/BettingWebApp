@@ -4,6 +4,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import um.mt.bettingapp.pojos.Bet;
+import um.mt.bettingapp.pojos.RiskLevel;
 import um.mt.bettingapp.pojos.UserAccount;
 
 public interface UserManager {
@@ -15,6 +16,9 @@ public interface UserManager {
 	
 	// Setters
 	public void setUserValidator(UserValidator validator);
+	public void setBetValidator(BetValidator validator);
+	public void setLoginManager(LoginManager loginmanager);
+	public void setLoggedinUser(UserAccount useraccount);
 	
 	// Class Operators
 	public boolean registerUser(String username, String password, String name,
@@ -23,8 +27,8 @@ public interface UserManager {
 	
 	public boolean login(String username, String password);
 	
-//	public void placeBet();
+	public boolean placeBet(String username, RiskLevel riskLevel, double amount);
 	
-//	public void logout();
+	public boolean logout();
 	
 }
