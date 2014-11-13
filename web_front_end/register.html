@@ -8,7 +8,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>Betting App | Log In</title>
+<title>Betting App | Register</title>
 
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet"
@@ -36,7 +36,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="http://getbootstrap.com/examples/navbar-fixed-top/#">Betting App | CPS3222</a>
+          <a class="navbar-brand" href="">Betting App | CPS3222</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
@@ -52,15 +52,15 @@
 	<div class="container">
 		<div class="well" style="width:40%; margin: 0 auto; margin-top:100px;">
 
-			<form class="form-signin" role="form">
+			<form class="form-signin" role="form" method="post">
 				<h2 class="form-signin-heading">Register Here:</h2>
-				<input type="text" id="inputUsername" class="form-control"placeholder="Username" required="" autofocus="">
+				<input type="text" id="inputUsername" class="form-control"placeholder="Username"  autofocus="">
 				<br>
-				<input type="password" id="inputPassword" class="form-control"placeholder="Password" required="">
-				<input type="password" id="inputPasswordMatch" class="form-control"placeholder="Re-Enter Password" required="">
+				<input type="password" id="inputPassword" class="form-control"placeholder="Password" >
+				<input type="password" id="inputPasswordMatch" class="form-control"placeholder="Re-Enter Password">
 				<br>
-				<input type="text" id="innputName" class="form-control"placeholder="First Name" required="" autofocus="">
-				<input type="text" id="inputSurname" class="form-control"placeholder="Surname" required="" autofocus="">
+				<input type="text" id="innputName" class="form-control"placeholder="First Name" autofocus="">
+				<input type="text" id="inputSurname" class="form-control"placeholder="Surname" autofocus="">
 				<br>
 				<div class="form-group">
     				<label for="inputDate" class="col-sm-4 control-label">Date of Birth:</label>
@@ -86,7 +86,37 @@
   				</label>
 				</div>
 				<br>
+				<br>
+				<input type="text" id="inputCreditCard" class="form-control"placeholder="Credit Card Number"  autofocus="">
 				</div>			
+				<br>
+				<label for="input_expirymonth" class="col-sm-4 control-label">Expiry Date:</label>
+				<select id="input_expirymonth" name="expiry_month" class="form-inline">
+  					<option>January</option>
+ 					<option>February</option>
+  					<option>March</option>
+  					<option>April</option>
+  					<option>May</option>
+  					<option>June</option>
+ 					<option>July</option>
+  					<option>August</option>
+  					<option>September</option>
+  					<option>October</option>
+  					<option>November</option>
+  					<option>December</option>
+				</select>
+				<select id="input_expiryyear" name="expiry_year" class="form-inline">
+  					<option>2014</option>
+ 					<option>2015</option>
+  					<option>2016</option>
+  					<option>2017</option>
+  					<option>2018</option>
+  					<option>2019</option>
+				</select>
+				<br><br>
+				<label class="col-sm-4 control-label">CVV Number:</label>
+				<input type="text" id="inputCVV" class="form-inline col-sm-2" placeholder="CVV" autofocus="">
+				<br>
 				<br>
 				<button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
 			</form>
