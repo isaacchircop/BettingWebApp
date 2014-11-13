@@ -19,8 +19,80 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
 
 <!-- Latest compiled and minified JavaScript -->
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+
+<script>
+$(document).ready(function(){
+  $("#inputName").change(function(){
+	  
+	  var str = document.getElementById('inputName').value;
+	  var patt = new RegExp("^[ A-z]+$");
+	  var res = patt.test(str);
+	  if(!res)
+		  document.getElementById('firstname_alert').style.display = "block";
+	  else
+		  document.getElementById('firstname_alert').style.display = "none";
+  });
+});
+
+$(document).ready(function(){
+	  $("#inputSurname").change(function(){
+		  
+		  var str = document.getElementById('inputSurname').value;
+		  var patt = new RegExp("^[ A-z]+$");
+		  var res = patt.test(str);
+		  if(!res)
+			  document.getElementById('surname_alert').style.display = "block";
+		  else
+			  document.getElementById('surname_alert').style.display = "none";
+	  });
+	});
+	
+$(document).ready(function(){
+	  $("#inputPassword").change(function(){
+		  
+		  var str = document.getElementById('inputPassword').value;
+		  if(str.length<8)
+			  document.getElementById('password_alert').style.display = "block";
+		  else
+			  document.getElementById('password_alert').style.display = "none";
+	  });
+	});
+	
+$(document).ready(function(){
+	  $("#inputDate").focusout(function(){
+	  var str = document.getElementById('inputDate').value;
+	  var date_arr = str.split("-");
+	  var dob_y = parseInt(date_arr[0]);
+	  var dob_m = parseInt(date_arr[1]);
+	  var dob_d = parseInt(date_arr[2]);
+	  
+	  var today = new Date();
+	  var today_d = today.getDate();
+	  var today_m = today.getMonth()+1;
+	  var today_y = today.getFullYear();
+	  
+	  if (today_y - dob_y < 18) {
+		  document.getElementById('dob_alert').style.display = "block";
+		} else if (today_y - dob_y == 18)
+			if(dob_m > today_m)
+			{
+				 document.getElementById('dob_alert').style.display = "block";
+			}
+			else if((dob_m == today_m)&&(dob_d>today_d))
+			{
+				document.getElementById('dob_alert').style.display = "block";
+			}
+			else
+				document.getElementById('dob_alert').style.display = "none";
+		else
+			document.getElementById('dob_alert').style.display = "none";
+
+	  });
+});
+</script>
+
 
 </head>
 
@@ -54,20 +126,35 @@
 
 			<form class="form-signin" role="form" method="post">
 				<h2 class="form-signin-heading">Register Here:</h2>
-				<input type="text" id="inputUsername" class="form-control"placeholder="Username"  autofocus="">
+				<input type="text" id="inputUsername" class="form-control"placeholder="Username" required autofocus="">
 				<br>
-				<input type="password" id="inputPassword" class="form-control"placeholder="Password" >
-				<input type="password" id="inputPasswordMatch" class="form-control"placeholder="Re-Enter Password">
+				<input type="password" id="inputPassword" class="form-control"placeholder="Password" required >
+				<div style="display:none;" id="password_alert" class="alert alert-danger" role="alert">
+  					<strong>Too Short!</strong> Must be at least 8 characters long!
+				</div>
 				<br>
-				<input type="text" id="innputName" class="form-control"placeholder="First Name" autofocus="">
-				<input type="text" id="inputSurname" class="form-control"placeholder="Surname" autofocus="">
+				<input type="text" id="inputName" class="form-control"placeholder="First Name" required>
+				
+				<div style="display:none;" id="firstname_alert" class="alert alert-danger" role="alert">
+  					<strong>Incorrect!</strong> Cannot contain numbers, symbols or left empty!
+				</div>
+				
+				<input  type="text" id="inputSurname" class="form-control"placeholder="Surname"  required>
+				<div style="display:none;" id="surname_alert" class="alert alert-danger" role="alert">
+  					<strong>Incorrect!</strong> Cannot contain numbers, symbols or left empty!
+				</div>
+								
 				<br>
 				<div class="form-group">
     				<label for="inputDate" class="col-sm-4 control-label">Date of Birth:</label>
     				<div class="col-sm-6">
-      					<input type="date" class="form-control" id="inputDate" placeholder="Date of Birth">
+      					<input type="date" class="form-control" id="inputDate" placeholder="Date of Birth" required>
     				</div>
+    				<div style="display:none" id="dob_alert" class="alert alert-danger" role="alert">
+  					<strong><br>Too Young!</strong> Must be at least 18 years old!
+				</div>
   				</div>
+  				
   				
 				<br>
 				<br>
@@ -75,7 +162,7 @@
     				<label for="usertypeoptions" class="col-sm-4 control-label">Account Type:</label>
 				<div class="radio">
   				<label class="col-sm-4 control-label">
-    				<input type="radio" name="usertypeoptions" id="optionsRadios1" value="user_free" checked>
+    				<input type="radio" name="usertypeoptions" id="optionsRadios1" value="user_free" checked >
     				Free
   				</label>
 				</div>
@@ -87,7 +174,7 @@
 				</div>
 				<br>
 				<br>
-				<input type="text" id="inputCreditCard" class="form-control"placeholder="Credit Card Number"  autofocus="">
+				<input type="text" id="inputCreditCard" class="form-control"placeholder="Credit Card Number" required>
 				</div>			
 				<br>
 				<label for="input_expirymonth" class="col-sm-4 control-label">Expiry Date:</label>
@@ -115,7 +202,7 @@
 				</select>
 				<br><br>
 				<label class="col-sm-4 control-label">CVV Number:</label>
-				<input type="text" id="inputCVV" class="form-inline col-sm-2" placeholder="CVV" autofocus="">
+				<input type="text" id="inputCVV" class="form-inline col-sm-2" placeholder="CVV" required>
 				<br>
 				<br>
 				<button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
