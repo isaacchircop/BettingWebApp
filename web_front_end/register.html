@@ -22,77 +22,7 @@
 <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
 
-<script>
-$(document).ready(function(){
-  $("#inputName").change(function(){
-	  
-	  var str = document.getElementById('inputName').value;
-	  var patt = new RegExp("^[ A-z]+$");
-	  var res = patt.test(str);
-	  if(!res)
-		  document.getElementById('firstname_alert').style.display = "block";
-	  else
-		  document.getElementById('firstname_alert').style.display = "none";
-  });
-});
-
-$(document).ready(function(){
-	  $("#inputSurname").change(function(){
-		  
-		  var str = document.getElementById('inputSurname').value;
-		  var patt = new RegExp("^[ A-z]+$");
-		  var res = patt.test(str);
-		  if(!res)
-			  document.getElementById('surname_alert').style.display = "block";
-		  else
-			  document.getElementById('surname_alert').style.display = "none";
-	  });
-	});
-	
-$(document).ready(function(){
-	  $("#inputPassword").change(function(){
-		  
-		  var str = document.getElementById('inputPassword').value;
-		  if(str.length<8)
-			  document.getElementById('password_alert').style.display = "block";
-		  else
-			  document.getElementById('password_alert').style.display = "none";
-	  });
-	});
-	
-$(document).ready(function(){
-	  $("#inputDate").focusout(function(){
-	  var str = document.getElementById('inputDate').value;
-	  var date_arr = str.split("-");
-	  var dob_y = parseInt(date_arr[0]);
-	  var dob_m = parseInt(date_arr[1]);
-	  var dob_d = parseInt(date_arr[2]);
-	  
-	  var today = new Date();
-	  var today_d = today.getDate();
-	  var today_m = today.getMonth()+1;
-	  var today_y = today.getFullYear();
-	  
-	  if (today_y - dob_y < 18) {
-		  document.getElementById('dob_alert').style.display = "block";
-		} else if (today_y - dob_y == 18)
-			if(dob_m > today_m)
-			{
-				 document.getElementById('dob_alert').style.display = "block";
-			}
-			else if((dob_m == today_m)&&(dob_d>today_d))
-			{
-				document.getElementById('dob_alert').style.display = "block";
-			}
-			else
-				document.getElementById('dob_alert').style.display = "none";
-		else
-			document.getElementById('dob_alert').style.display = "none";
-
-	  });
-});
-</script>
-
+<script src="js/registration_validation.js"></script>
 
 </head>
 
@@ -124,7 +54,6 @@ $(document).ready(function(){
 	<div class="container">
 		<div class="well" style="width:40%; margin: 0 auto; margin-top:100px;">
 
-			<form class="form-signin" role="form" method="post">
 				<h2 class="form-signin-heading">Register Here:</h2>
 				<input type="text" id="inputUsername" class="form-control"placeholder="Username" required autofocus="">
 				<br>
@@ -175,38 +104,32 @@ $(document).ready(function(){
 				<br>
 				<br>
 				<input type="text" id="inputCreditCard" class="form-control"placeholder="Credit Card Number" required>
+				<div style="display:none;" id="creditcard_alert" class="alert alert-danger" role="alert">
+  					<strong>Invalid!</strong> Make sure you inputted the Card Number correctly!
+				</div>
 				</div>			
 				<br>
-				<label for="input_expirymonth" class="col-sm-4 control-label">Expiry Date:</label>
-				<select id="input_expirymonth" name="expiry_month" class="form-inline">
-  					<option>January</option>
- 					<option>February</option>
-  					<option>March</option>
-  					<option>April</option>
-  					<option>May</option>
-  					<option>June</option>
- 					<option>July</option>
-  					<option>August</option>
-  					<option>September</option>
-  					<option>October</option>
-  					<option>November</option>
-  					<option>December</option>
-				</select>
-				<select id="input_expiryyear" name="expiry_year" class="form-inline">
-  					<option>2014</option>
- 					<option>2015</option>
-  					<option>2016</option>
-  					<option>2017</option>
-  					<option>2018</option>
-  					<option>2019</option>
-				</select>
+				<div class="form-group">
+    				<label for="inputExpiry" class="col-sm-5 control-label">Card Expiry Date:</label>
+    				<div class="col-sm-7">
+      					<input type="month" class="form-control" id="inputExpiry" placeholder="Expiry Date" required>
+    				</div>
+    				<div style="display:none" id="expiry_alert" class="alert alert-danger" role="alert">
+  					<strong><br>Expired!</strong> Must be in the future!
+				</div>
+  				</div>
+
+				<br>
+				<br>
 				<br><br>
 				<label class="col-sm-4 control-label">CVV Number:</label>
 				<input type="text" id="inputCVV" class="form-inline col-sm-2" placeholder="CVV" required>
+				<div style="display:none;" id="cvv_alert" class="alert alert-danger" role="alert">
+  					<strong><br>Incorrect!</strong> Must be a 3 digit code!
+				</div>
 				<br>
 				<br>
-				<button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
-			</form>
+				<button class="btn btn-lg btn-primary btn-block" type="submit" onclick="isformvalid()">Register</button>
 		</div>
 
 	</div>
