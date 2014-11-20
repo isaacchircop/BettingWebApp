@@ -5,7 +5,6 @@
   <artifactId>bettingapp-ws</artifactId>
   <packaging>war</packaging>
   <name>Betting App Web Service</name>
-  <url>http://maven.apache.org</url>
 
   <parent>
   	<groupId>um.edu.mt</groupId>
@@ -13,15 +12,28 @@
   	<version>0.0.1-SNAPSHOT</version>
   </parent>
 
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
-
   <dependencies>
   	<dependency>
 	  	<groupId>${project.groupId}</groupId>
 	    <artifactId>bettingapp-impl</artifactId>
 	    <version>${project.version}</version>
     </dependency>
+    <dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-web</artifactId>
+		<version>4.1.2.RELEASE</version>
+	</dependency>
+    <dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-context</artifactId>
+		<version>4.1.2.RELEASE</version>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-beans</artifactId>
+		<version>4.1.2.RELEASE</version>
+	</dependency>
+	
+    
   </dependencies>
 </project>

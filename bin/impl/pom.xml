@@ -5,17 +5,12 @@
   <artifactId>bettingapp-impl</artifactId>
   <packaging>jar</packaging>
   <name>Betting App Implementation</name>
-  <url>http://maven.apache.org</url>
 
   <parent>
   	<groupId>um.edu.mt</groupId>
   	<artifactId>bettingapp</artifactId>
   	<version>0.0.1-SNAPSHOT</version>
   </parent>
-
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
 
   <dependencies>
     <dependency>
