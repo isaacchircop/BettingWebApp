@@ -24,6 +24,9 @@ public class UserManagerImpl implements UserManager {
 	private static Map<String, UserAccount> users = new HashMap<String, UserAccount>();
 	private static List<BetImpl> bets = new ArrayList<BetImpl>();
 	
+	public void UserManager()
+	{}
+	
 	// Setters
 	public void setUserValidator(UserValidator validator) {
 		this.userValidator = validator;

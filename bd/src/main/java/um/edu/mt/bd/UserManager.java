@@ -4,7 +4,6 @@ import java.util.Calendar;
 import java.util.List;
 
 public interface UserManager {
-
 	// Getters
 	public int getNumberOfUsers();
 	public List<Bet> getBetsForUser(String username);
