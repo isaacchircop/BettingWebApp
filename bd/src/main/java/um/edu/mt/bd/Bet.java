@@ -11,4 +11,6 @@ public interface Bet {
 	public double getAmount();
 	public void setAmount(double amount);
 	
+	public String toString();
+	
 }

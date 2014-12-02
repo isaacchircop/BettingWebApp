@@ -4,6 +4,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import um.edu.mt.bd.Bet;
 import um.edu.mt.bd.BetValidator;
 import um.edu.mt.bd.LoginManager;
 import um.edu.mt.bd.RiskLevel;
@@ -94,35 +96,22 @@ public class UserManagerController {
 	@RequestMapping(value = "/placeBet", method = RequestMethod.POST)
 	public @ResponseBody String placeBet(@RequestParam(value="username") final String username,
 										 @RequestParam(value="risk_level") final String risk_level,
-										 @RequestParam(value="amount") final String amount)
-	{
-		System.out.println(username);
-		System.out.println(risk_level);
-		System.out.println(amount);
+										 @RequestParam(value="amount") final String amount){
+		Double dblamount = Double.parseDouble(amount);	
 		
-		Double dblamount = Double.parseDouble(amount);
-		
-		RiskLevel rlevel = null;
-		
+		RiskLevel rlevel = null;		
 		if(risk_level.equals("Low"))
 			rlevel= RiskLevel.LOW;
 		else if(risk_level.equals("Medium"))
 			rlevel= RiskLevel.MEDIUM;
 		else if(risk_level.equals("High"))
-			rlevel= RiskLevel.HIGH;
+			rlevel= RiskLevel.HIGH;				
 		
-		System.out.println(Double.parseDouble(amount));
-		System.out.println(rlevel);
-				
 		BetValidator validator = new BetValidatorImpl();
 		validator.setUserManager(myuser);
-		myuser.setBetValidator(validator);
+		myuser.setBetValidator(validator);		
 		
-		System.out.println(myuser.getUserAccount(username).isPremium());
-		
-		System.out.println(validator.validateAmount(myuser.getUserAccount(username), Double.parseDouble(amount)));
-		
-		UserAccount useraccount = myuser.getUserAccount(username);
+		UserAccount useraccount = myuser.getUserAccount(username);	
 		
 		if(myuser.placeBet(username, rlevel,dblamount ))
 		return "BET_PLACED";
@@ -133,21 +122,34 @@ public class UserManagerController {
 			else if(!validator.validateRisk(useraccount, rlevel))
 				return "RISK_TOO_HIGH";
 			else if(!validator.validateNumberOfBets(useraccount))
-				return "3_BETS_ALREADY";
-			
+				return "3_BETS_ALREADY";	
 			return "BET_NOT_PLACED";
 		}
 		else
 		{
 			if(!validator.validateCumulative(useraccount, dblamount))
 				return "CUMULATIVE_REACHED";	
-			
 			return "BET_NOT_PLACED";
 		}
+	}
+	
+	@RequestMapping(value = "/getBets", method = RequestMethod.POST)
+	public @ResponseBody String getBets(@RequestParam(value="username") final String username)
+	{
+		List<Bet> bets = myuser.getBetsForUser(username);
+		String response ="";
+		for(Bet b : bets)
+		{
+			if(response=="")
+			response = b.toString();
+			else
+			response = response + "|" + b.toString();
+		}
 		
-				
-			
+		if(response=="")
+		return "0_BETS";
 		
+		return response;
 	}
 	
 }

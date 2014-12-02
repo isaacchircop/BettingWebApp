@@ -39,4 +39,8 @@ public class BetImpl implements Bet{
 		this.amount = amount;
 	}
 	
+	public String toString(){
+		return this.riskLevel + "," + this.amount;
+	}
+	
 }
