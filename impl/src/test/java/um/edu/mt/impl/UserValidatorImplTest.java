@@ -107,14 +107,14 @@ public class UserValidatorImplTest {
 	@Test
 	public void invalidDOBSameYearUpcomingMonth() {
 		Calendar dob = Calendar.getInstance();
-		dob.set(1996, 11, 01);
+		dob.set(1996, dob.get(Calendar.MONTH)+1, 01);
 		assertFalse(validator.isDOBValid(dob));
 	}
 	
 	@Test
 	public void invalidDOBSameYearSameMonthUpcomingDay() {
 		Calendar dob = Calendar.getInstance();
-		dob.set(1996, 10, 30);
+		dob.set(1996, dob.get(Calendar.MONTH), dob.get(Calendar.DAY_OF_MONTH)+1);
 		assertFalse(validator.isDOBValid(dob));
 	}
 	
@@ -122,7 +122,7 @@ public class UserValidatorImplTest {
 	public void validDOBSameYearSameMonth() {
 		Calendar dob = Calendar.getInstance();
 		dob.set(Calendar.YEAR, 1996);
-		dob.set(Calendar.DAY_OF_MONTH, 5);
+		dob.set(Calendar.DAY_OF_MONTH, 1);
 		assertTrue(validator.isDOBValid(dob));
 	}
 	

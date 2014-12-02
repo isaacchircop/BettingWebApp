@@ -85,10 +85,10 @@ public class UserManagerImpl implements UserManager {
 	public boolean login(String username, String password) {
 		
 		UserAccount account = users.get(username);
+		
 		boolean loginAttempt = loginManager.login(account, password);
 		
-		this.loggedInUser = loginAttempt ? account : null;
-		
+		this.loggedInUser = loginAttempt ? account : null;		
 		return loginAttempt;
 		
 	}

@@ -37,6 +37,7 @@ public interface UserAccount {
 	
 	public void incrLoginTries();
 	public int getLoginTries();
+	public void resetLoginTries();
 	
 	public long unblkTimeLeft();
 	

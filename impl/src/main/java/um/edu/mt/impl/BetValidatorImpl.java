@@ -21,10 +21,12 @@ public class BetValidatorImpl implements BetValidator{
 	
 	// Class Operations
 	public boolean validateBet(UserAccount account, RiskLevel riskLevel, double amount) {
-		return validateRisk(account, riskLevel) && 
-				validateAmount(account, amount) && 
-				account.isPremium() ? validateCumulative(account, amount) 
-									: validateNumberOfBets(account);
+		boolean number = account.isPremium() ? validateCumulative(account, amount) : validateNumberOfBets(account);
+		if(validateRisk(account, riskLevel) && validateAmount(account, amount) && number)
+		{
+			return true;
+		}
+		else return false;
 		
 	}
 	

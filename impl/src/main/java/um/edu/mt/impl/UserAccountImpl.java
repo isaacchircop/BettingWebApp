@@ -130,6 +130,10 @@ public class UserAccountImpl implements UserAccount {
 		return this.loginTries;
 	}
 	
+	public void resetLoginTries(){
+		this.loginTries = 0;
+	}
+	
 	public long unblkTimeLeft() {
 		return (this.blockTime == 0) ? 0 : System.currentTimeMillis() - this.blockTime;
 	}

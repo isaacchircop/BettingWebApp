@@ -18,6 +18,7 @@ public class LoginManagerImpl implements LoginManager {
 			if (account.isBlocked()) {
 				if (account.unblkTimeLeft() >= UNBLOCKTIME) {
 					account.unblock();
+					account.resetLoginTries();
 					return true;
 				} else {
 					errorMessage = "Account is blocked.  Try again within " + account.unblkTimeLeft() / 1000 + " seconds";

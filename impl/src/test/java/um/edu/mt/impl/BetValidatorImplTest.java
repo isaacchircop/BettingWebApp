@@ -198,7 +198,7 @@ public class BetValidatorImplTest {
 		
 		validator.setUserManager(manager);
 		
-		assertTrue(validator.validateBet(account, RiskLevel.HIGH, 5));
+		assertFalse(validator.validateBet(account, RiskLevel.HIGH, 5));
 	}
 	
 	@Test
@@ -211,7 +211,7 @@ public class BetValidatorImplTest {
 		
 		validator.setUserManager(manager);
 		
-		assertTrue(validator.validateBet(account, RiskLevel.LOW, 10));
+		assertFalse(validator.validateBet(account, RiskLevel.LOW, 10));
 	}
 	
 	@Test

@@ -11,11 +11,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import um.edu.mt.bd.BetValidator;
 import um.edu.mt.bd.LoginManager;
+import um.edu.mt.bd.RiskLevel;
+import um.edu.mt.bd.UserAccount;
 import um.edu.mt.bd.UserManager;
 import um.edu.mt.impl.LoginManagerImpl;
 import um.edu.mt.bd.UserValidator;
+import um.edu.mt.impl.BetValidatorImpl;
 import um.edu.mt.impl.UserManagerImpl;
 import um.edu.mt.impl.UserValidatorImpl;
 
@@ -58,27 +63,91 @@ public class UserManagerController {
 		System.out.println(ccExpiry.toString());
 		System.out.println(cvv);
 		
-		boolean isPremium = (user_type == null) ? true : false;
+		boolean isPremium = (user_type.equals("user_premium")) ? true : false;
 		
 		UserValidator validator = new UserValidatorImpl();
 		validator.setUserManager(myuser);
 		myuser.setUserValidator(validator);
 		boolean regSuccess = myuser.registerUser(username, password, name, surname, dobCal, isPremium, ccNumber, expCal, cvv);
-		
+		System.out.println(myuser.getUserAccount(username).isPremium());
 		return new ResponseEntity<HttpStatus>((regSuccess) ? HttpStatus.OK : HttpStatus.NOT_ACCEPTABLE);
 
 	}
 
 	
 	@RequestMapping (value = "/loginUser", method = RequestMethod.POST)
-	public ResponseEntity<HttpStatus> loginUser(@RequestParam(value = "username") final String username,
+	public @ResponseBody String loginUser(@RequestParam(value = "username") final String username,
 												@RequestParam(value = "password") final String password)
 	{
 		System.out.println(username);
 		System.out.println(password);
-
 		myuser.setLoginManager(myloginmanager);
-		return new ResponseEntity<HttpStatus>((myuser.login(username, password)) ? HttpStatus.OK : HttpStatus.NOT_ACCEPTABLE);
+		
+		if (myuser.login(username, password))
+			return "LOGIN_SUCCESS";
+		else if(!myloginmanager.isAccountAccessible(myuser.getUserAccount(username)))
+			return "ACCOUNT_BLOCKED"+myuser.getUserAccount(username).unblkTimeLeft()/1000;
+		else 
+			return "USER_NOT_FOUND";	
+	}
+	
+	@RequestMapping(value = "/placeBet", method = RequestMethod.POST)
+	public @ResponseBody String placeBet(@RequestParam(value="username") final String username,
+										 @RequestParam(value="risk_level") final String risk_level,
+										 @RequestParam(value="amount") final String amount)
+	{
+		System.out.println(username);
+		System.out.println(risk_level);
+		System.out.println(amount);
+		
+		Double dblamount = Double.parseDouble(amount);
+		
+		RiskLevel rlevel = null;
+		
+		if(risk_level.equals("Low"))
+			rlevel= RiskLevel.LOW;
+		else if(risk_level.equals("Medium"))
+			rlevel= RiskLevel.MEDIUM;
+		else if(risk_level.equals("High"))
+			rlevel= RiskLevel.HIGH;
+		
+		System.out.println(Double.parseDouble(amount));
+		System.out.println(rlevel);
+				
+		BetValidator validator = new BetValidatorImpl();
+		validator.setUserManager(myuser);
+		myuser.setBetValidator(validator);
+		
+		System.out.println(myuser.getUserAccount(username).isPremium());
+		
+		System.out.println(validator.validateAmount(myuser.getUserAccount(username), Double.parseDouble(amount)));
+		
+		UserAccount useraccount = myuser.getUserAccount(username);
+		
+		if(myuser.placeBet(username, rlevel,dblamount ))
+		return "BET_PLACED";
+		else if(!useraccount.isPremium())
+		{
+			if(!validator.validateAmount(useraccount, dblamount))
+				return "AMOUNT_TOO_HIGH";
+			else if(!validator.validateRisk(useraccount, rlevel))
+				return "RISK_TOO_HIGH";
+			else if(!validator.validateNumberOfBets(useraccount))
+				return "3_BETS_ALREADY";
+			
+			return "BET_NOT_PLACED";
+		}
+		else
+		{
+			if(!validator.validateCumulative(useraccount, dblamount))
+				return "CUMULATIVE_REACHED";	
+			
+			return "BET_NOT_PLACED";
+		}
+		
+				
+			
+		
 	}
 	
 }
