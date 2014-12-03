@@ -39,7 +39,6 @@
 		<artifactId>spring-webmvc</artifactId>
 		<version>4.1.2.RELEASE</version>
 	</dependency>
-	
     
   </dependencies>
 </project>

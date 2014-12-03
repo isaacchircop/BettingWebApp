@@ -148,7 +148,6 @@ public class UserManagerController {
 		
 		if(response=="")
 		return "0_BETS";
-		
 		return response;
 	}
 	
