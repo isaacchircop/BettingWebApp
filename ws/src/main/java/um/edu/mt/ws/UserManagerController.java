@@ -151,4 +151,16 @@ public class UserManagerController {
 		return response;
 	}
 	
+	@RequestMapping(value= "/deleteUser", method = RequestMethod.POST)
+	public String deleteUser(@RequestParam(value="username") final String username)
+	{
+		
+		if(myuser.getNumberOfUsers()!=0)
+		{
+			System.out.println("Deleting User "+ username);
+			myuser.deleteUser(username);
+			System.out.println("No of Users: " + myuser.getNumberOfUsers());
+		}
+		return "OK";
+	}
 }

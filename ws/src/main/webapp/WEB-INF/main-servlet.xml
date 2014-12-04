@@ -8,7 +8,6 @@
                 http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
 		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
-
     <context:component-scan base-package="um.edu.mt.ws" />
     
     <bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">

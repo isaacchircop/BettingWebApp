@@ -1,5 +1,8 @@
 package um.edu.mt.impl;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -109,5 +112,26 @@ public class UserManagerImpl implements UserManager {
 			throw new IllegalStateException("Cannot logout from a non-existing user session");
 		}
 	}
-	
+
+	public void deleteUser(String username) {
+		UserAccount u = users.get(username);
+		if (u !=null)
+		{	
+		try{
+		users.remove(username);	
+		}
+		catch(Exception e)
+		{
+			
+		}
+		for(int i=0; i<bets.size();i++)
+		{
+			if (bets.get(i).getUsername().equals(username))
+			{
+				bets.remove(i);
+			}
+				
+		}
+		}
+	}	
 }

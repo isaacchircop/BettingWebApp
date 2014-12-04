@@ -51,30 +51,50 @@ import net.thucydides.core.pages.PageObject;
 	    
 	    @FindBy(id = "register_button")
 	    WebElement registerBtn;
+	    
+	    @FindBy(id = "firstname_alert")
+	    WebElement firstnameAlert;
+	    
+	    @FindBy(id = "surname_alert")
+	    WebElement surnameAlert;
+	    
+	    @FindBy(id = "dob_alert")
+	    WebElement dobAlert;
+	    
+	    @FindBy(id = "creditcard_alert")
+	    WebElement creditcardAlert;
+	    
+	    @FindBy(id ="expiry_alert")
+	    WebElement expiryAlert;
 
 	    public void setUsername(String input)
 	    {
 	    	username_input.sendKeys(input);
+	    	name_input.sendKeys(Keys.TAB);
 	    }
 	    
 	    public void setPassword(String input)
 	    {
 	    	password_input.sendKeys(input);
+	    	name_input.sendKeys(Keys.TAB);
 	    }
 	    
 	    public void setName(String input)
 	    {
 	    	name_input.sendKeys(input);
+	    	name_input.sendKeys(Keys.TAB);
 	    }
 	    
 	    public void setSurname(String input)
 	    {
 	    	surname_input.sendKeys(input);
+	    	name_input.sendKeys(Keys.TAB);
 	    }
 
 	    public void setDOB(String input)
 	    {
 	    	dob_input.sendKeys(input);
+	    	name_input.sendKeys(Keys.TAB);
 	    }
 	    
 	    public void selectFree()
@@ -90,6 +110,7 @@ import net.thucydides.core.pages.PageObject;
 	    public void setCreditCard(String input)
 	    {
 	    	card_input.sendKeys(input);
+	    	name_input.sendKeys(Keys.TAB);
 	    }
 	    
 	    public void setExpiry(String input)
@@ -100,6 +121,7 @@ import net.thucydides.core.pages.PageObject;
 	    public void setCVV(String input)
 	    {
 	    	cvv_input.sendKeys(input);
+	    	name_input.sendKeys(Keys.TAB);
 	    }
 	    
 	    public void clickRegister()
@@ -111,6 +133,32 @@ import net.thucydides.core.pages.PageObject;
 			expiry_input.sendKeys(input);
 		}
 	    
+		public boolean isFirstNameCorrect()
+		{
+			return !firstnameAlert.isDisplayed();
+		}
+		
+		public boolean isSurnameCorrect()
+		{
+			return !surnameAlert.isDisplayed();
+		}
+		
+		public boolean isDOBCorrect()
+		{
+			return !dobAlert.isDisplayed();
+		}
+		
+		public boolean isCreditCardCorrect()
+		{
+			return !creditcardAlert.isDisplayed();
+		}
+		
+		public boolean isExpiryCorrect()
+		{
+			return !expiryAlert.isDisplayed();
+		}
+		
+		
 	}
 
 
