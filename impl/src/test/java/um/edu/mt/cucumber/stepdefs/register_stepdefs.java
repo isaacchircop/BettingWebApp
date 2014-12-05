@@ -27,6 +27,13 @@ public class register_stepdefs {
 	
 	String username = "LeoMessi10";
 	
+	@After
+	public void after()
+	{	
+		if(browser!=null)
+		browser.quit();
+	}
+	
 	@Given("^I am a user trying to register")
 	public void Testing() throws Throwable {
 		System.setProperty("webdriver.chrome.driver", "C:\\Users\\Nick.Nick-PC\\chromedriver.exe");
@@ -59,7 +66,6 @@ public class register_stepdefs {
 	public void i_should_be_told_that_the_registration_was_successful() throws Throwable {
 		WebElement msg_header = browser.findElement(By.id("message_header"));
 		assertEquals("Successful Registration", msg_header.getText());
-		browser.quit();
 		try{
 		deleteUser(username);
 		}
@@ -96,7 +102,6 @@ public class register_stepdefs {
 	@Then("^I should be told that the data in Name is incorrect$")
 	public void i_should_be_told_that_the_data_in_Name_is_incorrect() throws Throwable {
 	    assertFalse(registerpage.isFirstNameCorrect());
-	    browser.quit();
 	}
 	
 	@When("^I change the Surname field to have incorrect input$")
@@ -112,7 +117,6 @@ public class register_stepdefs {
 	@Then("^I should be told that the data in Surname is incorrect$")
 	public void i_should_be_told_that_the_data_in_Surname_is_incorrect() throws Throwable {
 	    assertFalse(registerpage.isSurnameCorrect());
-	    browser.quit();
 	}
 	
 	@When("^I change the DOB field to have incorrect input$")
@@ -128,7 +132,6 @@ public class register_stepdefs {
 	@Then("^I should be told that the data in DOB is incorrect$")
 	public void i_should_be_told_that_the_data_in_DOB_is_incorrect() throws Throwable {
 		assertFalse(registerpage.isDOBCorrect());
-	    browser.quit();
 	}
 	
 	@When("^I change the CreditCard field to have incorrect input$")
@@ -144,7 +147,6 @@ public class register_stepdefs {
 	@Then("^I should be told that the data in CreditCard is incorrect$")
 	public void i_should_be_told_that_the_data_in_CreditCard_is_incorrect() throws Throwable {
 		assertFalse(registerpage.isCreditCardCorrect());
-	    browser.quit();
 	}
 
 	@When("^I change the ExpiryDate field to have incorrect input$")
@@ -163,11 +165,9 @@ public class register_stepdefs {
 	@Then("^I should be told that the data in ExpiryDate is incorrect$")
 	public void i_should_be_told_that_the_data_in_ExpiryDate_is_incorrect() throws Throwable {
 		assertFalse(registerpage.isExpiryCorrect());
-	    browser.quit();
 	}
 	
 	private void deleteUser(String username) throws Exception {
-		System.out.println("Trying to Delete");
 		String urlParameters = "username="+username;
 		URL url = new URL("http://localhost:8080/bettingapp/deleteUser");
 		URLConnection conn = url.openConnection();
@@ -178,14 +178,9 @@ public class register_stepdefs {
 		writer.write(urlParameters);
 		writer.flush();
 
-		String line;
-		BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-
-		while ((line = reader.readLine()) != null) {
-		    System.out.println(line);
-		}
+		try{BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream())); reader.close();}
+		catch(Exception e){}
 		writer.close();
-		reader.close(); 
 	}
 
 	

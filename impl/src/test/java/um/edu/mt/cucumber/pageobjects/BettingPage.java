@@ -14,6 +14,9 @@ public class BettingPage extends PageObject {
 	public BettingPage(WebDriver driver) {
         super(driver); 
     }
+	
+	@FindBy(id= "LogOut_Link")
+	WebElement logout_link;
 		
 	@FindBy(id = "input_risklevel")
     WebElement risklevel_input;
@@ -74,5 +77,9 @@ public class BettingPage extends PageObject {
     {
     	return alert_success.isDisplayed();
     }
+
+	public void clickLogOut() {
+		logout_link.click();
+	}
 
 }

@@ -124,6 +124,7 @@ public class UserManagerImpl implements UserManager {
 		{
 			
 		}
+		if(bets.size()!=0)
 		for(int i=0; i<bets.size();i++)
 		{
 			if (bets.get(i).getUsername().equals(username))
