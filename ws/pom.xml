@@ -13,32 +13,35 @@
   </parent>
 
   <dependencies>
-  	<dependency>
-	  	<groupId>${project.groupId}</groupId>
-	    <artifactId>bettingapp-impl</artifactId>
-	    <version>${project.version}</version>
-    </dependency>
-    <dependency>
-		<groupId>org.springframework</groupId>
-		<artifactId>spring-web</artifactId>
-		<version>4.1.2.RELEASE</version>
-	</dependency>
-    <dependency>
-		<groupId>org.springframework</groupId>
-		<artifactId>spring-context</artifactId>
-		<version>4.1.2.RELEASE</version>
+	<dependency>
+	  <groupId>${project.groupId}</groupId>
+	  <artifactId>bettingapp-impl</artifactId>
+	  <version>${project.version}</version>
 	</dependency>
 	<dependency>
-		<groupId>org.springframework</groupId>
-		<artifactId>spring-beans</artifactId>
-		<version>4.1.2.RELEASE</version>
+	  <groupId>org.springframework</groupId>
+	  <artifactId>spring-web</artifactId>
+	  <version>4.1.2.RELEASE</version>
 	</dependency>
-	
 	<dependency>
-		<groupId>org.springframework</groupId>
-		<artifactId>spring-webmvc</artifactId>
-		<version>4.1.2.RELEASE</version>
+	  <groupId>org.springframework</groupId>
+	  <artifactId>spring-context</artifactId>
+	  <version>4.1.2.RELEASE</version>
 	</dependency>
-    
+	<dependency>
+	  <groupId>org.springframework</groupId>
+	  <artifactId>spring-beans</artifactId>
+	  <version>4.1.2.RELEASE</version>
+	</dependency>
+	<dependency>
+	  <groupId>org.springframework</groupId>
+	  <artifactId>spring-webmvc</artifactId>
+	  <version>4.1.2.RELEASE</version>
+	</dependency>
+	<dependency>
+	  <groupId>org.codehaus.jackson</groupId>
+	  <artifactId>jackson-mapper-asl</artifactId>
+	  <version>1.9.13</version>
+	</dependency>
   </dependencies>
 </project>

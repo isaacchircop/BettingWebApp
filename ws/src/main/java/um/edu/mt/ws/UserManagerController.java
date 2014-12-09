@@ -133,7 +133,7 @@ public class UserManagerController {
 		}
 	}
 	
-	@RequestMapping(value = "/getBets", method = RequestMethod.POST)
+	@RequestMapping(value = "/getBets", method = RequestMethod.GET)
 	public @ResponseBody String getBets(@RequestParam(value="username") final String username)
 	{
 		List<Bet> bets = myuser.getBetsForUser(username);

@@ -58,6 +58,7 @@ public class UserManagerImpl implements UserManager {
 	}
 	
 	public List<Bet> getBetsForUser(String username) {
+		System.out.println("get bets");
 		List<Bet> queriedBets = new ArrayList<Bet>();
 		
 		for (Bet bet : bets) {
