@@ -6,5 +6,7 @@ public interface LoginManager {
 	public boolean isAccountExistent(UserAccount account);
 	public boolean isAccountAccessible(UserAccount account);
 	public boolean isPasswordCorrect(UserAccount account, String password);
-	
+
+	public String getErrorMessage();
+
 }

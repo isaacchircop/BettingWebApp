@@ -8,11 +8,7 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import um.edu.mt.bd.Bet;
 import um.edu.mt.bd.BetValidator;
@@ -26,7 +22,7 @@ import um.edu.mt.impl.BetValidatorImpl;
 import um.edu.mt.impl.UserManagerImpl;
 import um.edu.mt.impl.UserValidatorImpl;
 
-@Controller
+@RestController
 public class UserManagerController {
 	
 	private UserManager myuser = new UserManagerImpl();
@@ -55,112 +51,78 @@ public class UserManagerController {
 			e.printStackTrace();
 		}
 		
-		System.out.println(username);
-		System.out.println(password);
-		System.out.println(name);
-		System.out.println(surname);
-		System.out.println(dobCal.toString());
-		System.out.println(user_type);
-		System.out.println(ccNumber);
-		System.out.println(ccExpiry.toString());
-		System.out.println(cvv);
-		
-		boolean isPremium = (user_type.equals("user_premium")) ? true : false;
+		boolean isPremium = user_type.equals("user_premium");
 		
 		UserValidator validator = new UserValidatorImpl();
 		validator.setUserManager(myuser);
 		myuser.setUserValidator(validator);
+
 		boolean regSuccess = myuser.registerUser(username, password, name, surname, dobCal, isPremium, ccNumber, expCal, cvv);
-		System.out.println(myuser.getUserAccount(username).isPremium());
 		return new ResponseEntity<HttpStatus>((regSuccess) ? HttpStatus.OK : HttpStatus.NOT_ACCEPTABLE);
 
 	}
 
 	
 	@RequestMapping (value = "/loginUser", method = RequestMethod.POST)
-	public @ResponseBody String loginUser(@RequestParam(value = "username") final String username,
-												@RequestParam(value = "password") final String password)
-	{
-		System.out.println(username);
-		System.out.println(password);
+	public ResponseEntity<String> loginUser(@RequestParam(value = "username") final String username,
+							@RequestParam(value = "password") final String password) {
+
 		myuser.setLoginManager(myloginmanager);
-		
-		if (myuser.login(username, password))
-			return "LOGIN_SUCCESS";
-		else if(!myloginmanager.isAccountAccessible(myuser.getUserAccount(username)))
-			return "ACCOUNT_BLOCKED"+myuser.getUserAccount(username).unblkTimeLeft()/1000;
-		else 
-			return "USER_NOT_FOUND";	
+
+		if (myuser.login(username, password)) {
+			return new ResponseEntity<String>(HttpStatus.OK);
+		} else {
+			UserAccount account = myuser.getUserAccount(username);
+			if(!myloginmanager.isAccountAccessible(account)) {
+				return new ResponseEntity<String>(myloginmanager.getErrorMessage(), HttpStatus.FORBIDDEN);
+			} else {
+				return new ResponseEntity<String>(HttpStatus.OK);
+			}
+		}
+
 	}
 	
 	@RequestMapping(value = "/placeBet", method = RequestMethod.POST)
-	public @ResponseBody String placeBet(@RequestParam(value="username") final String username,
-										 @RequestParam(value="risk_level") final String risk_level,
-										 @RequestParam(value="amount") final String amount){
-		Double dblamount = Double.parseDouble(amount);	
-		
-		RiskLevel rlevel = null;		
-		if(risk_level.equals("Low"))
-			rlevel= RiskLevel.LOW;
-		else if(risk_level.equals("Medium"))
-			rlevel= RiskLevel.MEDIUM;
-		else if(risk_level.equals("High"))
-			rlevel= RiskLevel.HIGH;				
-		
+	public ResponseEntity<String> placeBet(@RequestParam(value="username") final String username,
+										   @RequestParam(value="risk_level") final String risk_level,
+										   @RequestParam(value="amount") final String strAmount){
+
+		Double amount = Double.parseDouble(strAmount);
+		RiskLevel risk = RiskLevel.valueOf(risk_level.toUpperCase());
+
 		BetValidator validator = new BetValidatorImpl();
 		validator.setUserManager(myuser);
-		myuser.setBetValidator(validator);		
-		
-		UserAccount useraccount = myuser.getUserAccount(username);	
-		
-		if(myuser.placeBet(username, rlevel,dblamount ))
-		return "BET_PLACED";
-		else if(!useraccount.isPremium())
-		{
-			if(!validator.validateAmount(useraccount, dblamount))
-				return "AMOUNT_TOO_HIGH";
-			else if(!validator.validateRisk(useraccount, rlevel))
-				return "RISK_TOO_HIGH";
-			else if(!validator.validateNumberOfBets(useraccount))
-				return "3_BETS_ALREADY";	
-			return "BET_NOT_PLACED";
-		}
-		else
-		{
-			if(!validator.validateCumulative(useraccount, dblamount))
-				return "CUMULATIVE_REACHED";	
-			return "BET_NOT_PLACED";
+		myuser.setBetValidator(validator);
+
+		UserAccount useraccount = myuser.getUserAccount(username);
+
+		// Can be improved by getting most recent error message from bet validator
+		if(myuser.placeBet(username, risk, amount)) {
+			return new ResponseEntity<String>(HttpStatus.ACCEPTED);
+		} else {
+			if(!validator.validateAmount(useraccount, amount)){
+				return new ResponseEntity<String>("Bet amount exceeds maximum limit", HttpStatus.FORBIDDEN);
+			}
+
+			if(!validator.validateRisk(useraccount, risk)) {
+				return new ResponseEntity<String>("Invalid Risk Level for user account type", HttpStatus.FORBIDDEN);
+			}
+
+			if(!validator.validateNumberOfBets(useraccount)) {
+				return new ResponseEntity<String>("Maximum number of bets reached", HttpStatus.FORBIDDEN);
+			}
+
+			if (useraccount.isPremium() && !validator.validateCumulative(useraccount, amount)) {
+				return new ResponseEntity<String>("Maximum number of cumulative bets amount reached", HttpStatus.FORBIDDEN);
+			}
+
+			throw new IllegalStateException("Bet not placed for no reason at all!");
 		}
 	}
 	
 	@RequestMapping(value = "/getBets", method = RequestMethod.GET)
-	public @ResponseBody String getBets(@RequestParam(value="username") final String username)
-	{
-		List<Bet> bets = myuser.getBetsForUser(username);
-		String response ="";
-		for(Bet b : bets)
-		{
-			if(response=="")
-			response = b.toString();
-			else
-			response = response + "|" + b.toString();
-		}
-		
-		if(response=="")
-		return "0_BETS";
-		return response;
+	public List<Bet> getBets(@RequestParam(value="username") final String username)	{
+		return myuser.getBetsForUser(username);
 	}
-	
-	@RequestMapping(value= "/deleteUser", method = RequestMethod.POST)
-	public String deleteUser(@RequestParam(value="username") final String username)
-	{
-		
-		if(myuser.getNumberOfUsers()!=0)
-		{
-			System.out.println("Deleting User "+ username);
-			myuser.deleteUser(username);
-			System.out.println("No of Users: " + myuser.getNumberOfUsers());
-		}
-		return "OK";
-	}
+
 }

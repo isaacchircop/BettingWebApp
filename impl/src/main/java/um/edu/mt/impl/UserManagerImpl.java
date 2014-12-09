@@ -1,8 +1,5 @@
 package um.edu.mt.impl;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -26,9 +23,6 @@ public class UserManagerImpl implements UserManager {
 	private UserAccount loggedInUser;
 	private static Map<String, UserAccount> users = new HashMap<String, UserAccount>();
 	private static List<BetImpl> bets = new ArrayList<BetImpl>();
-	
-	public void UserManager()
-	{}
 	
 	// Setters
 	public void setUserValidator(UserValidator validator) {
@@ -114,26 +108,4 @@ public class UserManagerImpl implements UserManager {
 		}
 	}
 
-	public void deleteUser(String username) {
-		UserAccount u = users.get(username);
-		if (u !=null)
-		{	
-		try{
-		users.remove(username);	
-		}
-		catch(Exception e)
-		{
-			
-		}
-		if(bets.size()!=0)
-		for(int i=0; i<bets.size();i++)
-		{
-			if (bets.get(i).getUsername().equals(username))
-			{
-				bets.remove(i);
-			}
-				
-		}
-		}
-	}	
 }

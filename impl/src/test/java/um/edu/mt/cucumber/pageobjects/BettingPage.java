@@ -11,10 +11,6 @@ import org.openqa.selenium.WebElement;
 @DefaultUrl("http://localhost:8080/bettingapp_frontend/betting_screen.html")
 public class BettingPage extends PageObject {
 	
-	public BettingPage(WebDriver driver) {
-        super(driver); 
-    }
-	
 	@FindBy(id= "LogOut_Link")
 	WebElement logout_link;
 		
@@ -27,59 +23,49 @@ public class BettingPage extends PageObject {
     @FindBy(id = "placebet_button")
     WebElement placebet_button;
     
-    @FindBy(id = "alert_riskhigh")
-    WebElement alert_riskhigh;
+    @FindBy(id = "alert_errorMsg")
+    WebElement alert_errorMsg;
     
-    @FindBy(id = "alert_amounthigh")
-    WebElement alert_amounthigh;
-    
-    @FindBy(id = "alert_3bets")
-    WebElement alert_3bets;
-    
-    @FindBy(id = "alert_cumulative")
-    WebElement alert_cumulative;
-    
-    @FindBy(id = "alert_success")
-    WebElement alert_success;
-    
-    public void setRiskLevel(String input)
-    {
+    @FindBy(id = "alert_Success")
+    WebElement alert_Success;
+
+    public BettingPage(WebDriver driver) {
+        super(driver);
+    }
+
+    // Input methods
+    public void setRiskLevel(String input) {
     	risklevel_input.sendKeys(input);
     }
     
-    public void setAmount(String input)
-    {
+    public void setAmount(String input) {
     	amount_input.clear();
     	amount_input.sendKeys(input);
     }
     
-    public void clickPlaceBet()
-    {
+    public void clickPlaceBet() {
     	placebet_button.click();
     }
-    
-    public boolean is3Bets()
-	{
-		return alert_3bets.isDisplayed();
-	}
-    
-    public boolean isCumulativeReached()
-	{
-		return alert_cumulative.isDisplayed();
-	}
-    
-    public boolean isRiskTooHigh()
-    {
-    	return alert_riskhigh.isDisplayed();
-    }
-    
-    public boolean isBetPlaced()
-    {
-    	return alert_success.isDisplayed();
+
+    public void clickLogOut() {
+        logout_link.click();
     }
 
-	public void clickLogOut() {
-		logout_link.click();
+    // Check display contents methods
+    public boolean is3Bets(){
+		return alert_errorMsg.getText().equals("Maximum number of bets reached") && alert_errorMsg.isDisplayed();
 	}
+    
+    public boolean isCumulativeReached() {
+		return alert_errorMsg.getText().equals("Maximum number of cumulative bets amount reached") && alert_errorMsg.isDisplayed();
+	}
+    
+    public boolean isRiskTooHigh() {
+    	return alert_errorMsg.getText().equals("Invalid Risk Level for user account type") && alert_errorMsg.isDisplayed();
+    }
+    
+    public boolean isBetPlaced() {
+    	return alert_Success.isDisplayed();
+    }
 
 }

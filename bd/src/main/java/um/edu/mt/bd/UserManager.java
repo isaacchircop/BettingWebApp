@@ -15,8 +15,6 @@ public interface UserManager {
 	public void setLoginManager(LoginManager loginmanager);
 	public void setLoggedinUser(UserAccount useraccount);
 	
-	public void deleteUser(String username);
-	
 	// Class Operators
 	public boolean registerUser(String username, String password, String name,
 			String surname, Calendar date, boolean isPremium, String ccNumber,

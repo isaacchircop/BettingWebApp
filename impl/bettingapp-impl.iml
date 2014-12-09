@@ -10,6 +10,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="modeljunit" level="project" />
     <orderEntry type="module" module-name="bettingapp-bd" />
     <orderEntry type="library" name="Maven: info.cukes:cucumber-java:1.2.0" level="project" />
     <orderEntry type="library" name="Maven: info.cukes:cucumber-core:1.2.0" level="project" />
@@ -136,8 +137,8 @@
       </library>
     </orderEntry>
     <orderEntry type="library" name="Maven: log4j:log4j:1.2.9" level="project" />
+    <orderEntry type="library" name="Maven: net.sourceforge.czt:modeljunit:1.0" level="project" />
     <orderEntry type="library" name="Maven: junit:junit:4.11" level="project" />
     <orderEntry type="library" name="Maven: org.mockito:mockito-all:1.9.5" level="project" />
-    <orderEntry type="library" name="modeljunit" level="project" />
   </component>
 </module>

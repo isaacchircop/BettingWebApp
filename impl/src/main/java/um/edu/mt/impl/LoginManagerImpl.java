@@ -24,8 +24,13 @@ public class LoginManagerImpl implements LoginManager {
 					errorMessage = "Account is blocked.  Try again within " + account.unblkTimeLeft() / 1000 + " seconds";
 					return false;
 				}
-			} else return true;
-		} else return false;
+			} else {
+				return true;
+			}
+		} else {
+			errorMessage = "Account does not exist";
+			return false;
+		}
 	}
 
 	public boolean isPasswordCorrect(UserAccount account, String password) {

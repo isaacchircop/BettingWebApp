@@ -5,7 +5,9 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.Random;
 
+import cucumber.api.java.Before;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -14,7 +16,6 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 import um.edu.mt.cucumber.pageobjects.RegisterPage;
 import cucumber.api.java.After;
-import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -25,24 +26,32 @@ public class register_stepdefs {
 	WebDriver browser;
 	RegisterPage registerpage;
 	
-	String username = "LeoMessi10";
-	
+	String username = "";
+
+	@Before
+	public void before() {
+		Random r = new Random();
+		username = "username"+r.nextInt(9999);
+	}
+
 	@After
 	public void after()
 	{	
-		if(browser!=null)
-		browser.quit();
+		if(browser!=null){
+			browser.quit();
+		}
 	}
 	
 	@Given("^I am a user trying to register")
 	public void Testing() throws Throwable {
-		System.setProperty("webdriver.chrome.driver", "C:\\Users\\Nick.Nick-PC\\chromedriver.exe");
+		System.setProperty("webdriver.chrome.driver", "impl\\src\\test\\resources\\chromedriver.exe");
 		browser = new ChromeDriver();
 		registerpage = new RegisterPage(browser);
 	}
 	
 	@When("^I register providing correct information$")
 	public void i_register_providing_correct_information() throws Throwable {
+
 		registerpage.setUsername(username);
 		registerpage.setPassword("12345678");
 		registerpage.setName("Leo");
@@ -54,6 +63,7 @@ public class register_stepdefs {
 		registerpage.setExpiry(Keys.TAB);
 		registerpage.setExpiry("2016");
 		registerpage.setCVV("123");
+
 		registerpage.clickRegister();
 		try {
 		    Thread.sleep(2000);
@@ -66,12 +76,6 @@ public class register_stepdefs {
 	public void i_should_be_told_that_the_registration_was_successful() throws Throwable {
 		WebElement msg_header = browser.findElement(By.id("message_header"));
 		assertEquals("Successful Registration", msg_header.getText());
-		try{
-		deleteUser(username);
-		}
-		catch(Exception e)
-		{}
-		
 	}
 	
 	@When("^I fill in a form with correct data$")
@@ -166,22 +170,5 @@ public class register_stepdefs {
 	public void i_should_be_told_that_the_data_in_ExpiryDate_is_incorrect() throws Throwable {
 		assertFalse(registerpage.isExpiryCorrect());
 	}
-	
-	private void deleteUser(String username) throws Exception {
-		String urlParameters = "username="+username;
-		URL url = new URL("http://localhost:8080/bettingapp/deleteUser");
-		URLConnection conn = url.openConnection();
-		conn.setDoOutput(true);
-
-		OutputStreamWriter writer = new OutputStreamWriter(conn.getOutputStream());
-
-		writer.write(urlParameters);
-		writer.flush();
-
-		try{BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream())); reader.close();}
-		catch(Exception e){}
-		writer.close();
-	}
-
 	
 }
