@@ -1,12 +1,15 @@
 package um.edu.mt.model;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
-import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.Test;
 
 import net.sourceforge.czt.modeljunit.Action;
@@ -14,61 +17,178 @@ import net.sourceforge.czt.modeljunit.AllRoundTester;
 import net.sourceforge.czt.modeljunit.FsmModel;
 import net.sourceforge.czt.modeljunit.Tester;
 import net.sourceforge.czt.modeljunit.VerboseListener;
+import um.edu.mt.bd.Bet;
+import um.edu.mt.bd.RiskLevel;
+import um.edu.mt.impl.BetImpl;
 
 public class Model implements FsmModel {
-	
-	boolean isPremium = false;
-	String username = "";
-	boolean loggedin = false;
-	String password = "12345678";
-	
-	public Object getState() {
-		if(username.equals(""))
+
+	final double PROB_PREMIUM = 0.25;
+
+	private String username = "";
+	private String password = "";
+	private boolean isPremium = false;
+	private boolean isLoggedIn = false;
+	private List<Bet> bets = new ArrayList<Bet>();
+
+	private Random random = new Random();
+
+	public State getState() {
+		if(username.equals("")) {
+			// Not registered
 			return State.WAIT_FOR_REGISTER;
-		else 
-			if(!loggedin)
+		}
+
+		if(!isLoggedIn) {
+			// Registered yet not logged in
 			return State.WAIT_FOR_LOGIN;
-				else if(loggedin)
-					return State.WAIT_FOR_BET;
-		
-		return 0;
+		}
+
+		// Registered and Logged In
+		return State.WAIT_FOR_BET;
 	}
 
 	public void reset(boolean arg0) {
 		username = "";
+		password = "";
 		isPremium = false;
-		loggedin = false;
+		isLoggedIn = false;
 	}
-	
-	public boolean RegisterGuard(){
-		return getState().equals((State.WAIT_FOR_REGISTER));
+
+
+	public boolean registerGuard(){
+		return getState() == State.WAIT_FOR_REGISTER;
 	}
-	
-	public boolean LogInGuard(){
-		double chance = Math.random();
-		return((chance > 0.25) && (getState().equals((State.WAIT_FOR_LOGIN))));
-	}
-	
 	@Action
-	public void Register() throws Exception
-	{
-		username = RandomStringUtils.randomAlphanumeric(15);	
-		double chance = Math.random();
-		isPremium = (chance > 0.75);
-		if(isPremium)
-			addnewUser(username, "user_premium");
-		else 
-			addnewUser(username, "user_free");
+	public void register() {
+		// Set username and password
+		username = "username" + random.nextInt(9999);
+		password = "password123";
+
+		// Create user account as free or premium depending on probability
+		double chance = random.nextDouble();
+		String user_type;
+		if(chance < PROB_PREMIUM) {
+			isPremium = true;
+			user_type = "user_premium";
+		} else {
+			user_type = "user_free";
+		}
+
+		// Create account
+		String urlParameters = "username="+username+"" +
+				  			   "&password="+password+"" +
+							   "&name=User" +
+							   "&surname=User" +
+							   "&dob=1994-03-17" +
+							   "&user_type="+user_type+"" +
+							   "&ccNumber=5555555555554444" +
+							   "&ccExpiry=2017-06" +
+							   "&cvv=123";
+
+		try {
+			URL url = new URL("http://localhost:8080/bettingapp/registerUser");
+			URLConnection conn = url.openConnection();
+			conn.setDoOutput(true);
+
+			OutputStreamWriter writer = new OutputStreamWriter(conn.getOutputStream());
+			writer.write(urlParameters);
+			writer.flush();
+
+			BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+			reader.close();
+			writer.close();
+		}
+		catch(IOException e){}
 	}
-	
-	
+
+	public boolean loginGuard(){
+		return getState() == State.WAIT_FOR_LOGIN;
+	}
 	@Action
-	public void LogIn() throws Exception
-	{
-		if(LogInUser(username,password).equals("LOGIN_SUCCESS"))
-			loggedin = true;
+	public void login() {
+		try {
+
+			// Calculate chance of performing successful login
+			String password = "";
+			double invalidLoginChance = random.nextDouble();
+			if (invalidLoginChance < 0.25) {
+				password = "12345678";
+			} else {
+				password = this.password;
+			}
+
+			// Attempt login
+			String urlParameters = "username=" + username +
+								   "&password=" + password;
+
+			URL url = new URL("http://localhost:8080/bettingapp/loginUser");
+			URLConnection conn = url.openConnection();
+			conn.setDoOutput(true);
+
+			OutputStreamWriter writer = new OutputStreamWriter(conn.getOutputStream());
+			writer.write(urlParameters);
+			writer.flush();
+
+			BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+			String input = reader.readLine();
+			reader.close();
+			writer.close();
+
+			isLoggedIn = input.equals("");
+		}
+		catch(Exception e){}
 	}
-	
+
+	public boolean logoutGuard() {
+		return getState() == State.WAIT_FOR_BET;
+	}
+	@Action
+	public void logout() {
+		isLoggedIn = false;
+	}
+
+	public boolean placeBetGuard() {
+		return getState() == State.WAIT_FOR_BET;
+	}
+	@Action
+	public void placeBet() {
+		double amount;
+		if (isPremium) {
+			amount = random.nextInt(1900) + 100;
+		} else {
+			amount = random.nextInt(5) + 1;
+		}
+
+		// Decide on riskLevel probabilities
+
+		try {
+			String urlParameters = "username=" + username +
+					  			   "&risk_Level=" + "low" +
+								   "&amount=" + amount;
+
+			URL url = new URL("http://localhost:8080/bettingapp/placeBet");
+			URLConnection conn = url.openConnection();
+			conn.setDoOutput(true);
+
+			OutputStreamWriter writer = new OutputStreamWriter(conn.getOutputStream());
+			writer.write(urlParameters);
+			writer.flush();
+
+			BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+			String input = reader.readLine();
+			reader.close();
+			writer.close();
+
+			if (input.equals("")) {
+				// Bet accepted by server
+				bets.add(new BetImpl(username, RiskLevel.LOW, amount));
+			}
+		}
+		catch(Exception e){}
+
+	}
+
 	@Test
 	public void test() {
 		Tester t = new AllRoundTester(new Model());
@@ -76,36 +196,5 @@ public class Model implements FsmModel {
 		t.generate(10);
 		t.buildGraph();
 	}
-	
-	private void addnewUser(String username, String user_type) throws Exception {
-		String urlParameters = "username="+username+"&password=12345678&name=User&surname=User&dob=1994-03-17&user_type="+user_type+"&ccNumber=5555555555554444&ccExpiry=2017-06&cvv=123";
-		URL url = new URL("http://localhost:8080/bettingapp/registerUser");
-		URLConnection conn = url.openConnection();
-		conn.setDoOutput(true);
-		OutputStreamWriter writer = new OutputStreamWriter(conn.getOutputStream());
-		writer.write(urlParameters);
-		writer.flush();
-		try{BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream())); reader.close();}
-		catch(Exception e){}
-		writer.close();
-	}
-	
-	private String LogInUser(String username, String password) throws Exception {
-		String urlParameters = "username="+username+"&password="+password;
-		URL url = new URL("http://localhost:8080/bettingapp/loginUser");
-		URLConnection conn = url.openConnection();
-		conn.setDoOutput(true);
-		OutputStreamWriter writer = new OutputStreamWriter(conn.getOutputStream());
-		writer.write(urlParameters);
-		writer.flush();
-		String input="";
-		try{BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream())); 
-		input = reader.readLine();
-		reader.close();}
-		catch(Exception e){}
-		writer.close();
-		return input;
-	}
-	
 
 }
