@@ -15,6 +15,7 @@ import org.junit.Test;
 import net.sourceforge.czt.modeljunit.Action;
 import net.sourceforge.czt.modeljunit.AllRoundTester;
 import net.sourceforge.czt.modeljunit.FsmModel;
+import net.sourceforge.czt.modeljunit.GreedyTester;
 import net.sourceforge.czt.modeljunit.Tester;
 import net.sourceforge.czt.modeljunit.VerboseListener;
 import um.edu.mt.bd.Bet;
@@ -24,6 +25,7 @@ import um.edu.mt.impl.BetImpl;
 public class Model implements FsmModel {
 
 	final double PROB_PREMIUM = 0.25;
+	final double PROB_PLACEANOTHER = 0.5;
 
 	private String username = "";
 	private String password = "";
@@ -44,8 +46,10 @@ public class Model implements FsmModel {
 			return State.WAIT_FOR_LOGIN;
 		}
 
-		// Registered and Logged In
-		return State.WAIT_FOR_BET;
+		if(isLoggedIn)
+			return State.WAIT_FOR_BET;
+		
+		return null;
 	}
 
 	public void reset(boolean arg0) {
@@ -134,8 +138,8 @@ public class Model implements FsmModel {
 			String input = reader.readLine();
 			reader.close();
 			writer.close();
-
-			isLoggedIn = input.equals("");
+			if(input == null)
+				isLoggedIn = true;
 		}
 		catch(Exception e){}
 	}
@@ -180,10 +184,16 @@ public class Model implements FsmModel {
 			reader.close();
 			writer.close();
 
-			if (input.equals("")) {
+			if (input == null) {
 				// Bet accepted by server
 				bets.add(new BetImpl(username, RiskLevel.LOW, amount));
 			}
+			
+			double placeanother = random.nextDouble();
+			if (placeanother < PROB_PLACEANOTHER) {
+				isLoggedIn = false;
+			} 
+
 		}
 		catch(Exception e){}
 
@@ -191,9 +201,9 @@ public class Model implements FsmModel {
 
 	@Test
 	public void test() {
-		Tester t = new AllRoundTester(new Model());
+		Tester t = new GreedyTester(new Model());
 		t.addListener(new VerboseListener());
-		t.generate(10);
+		t.generate(100);
 		t.buildGraph();
 	}
 

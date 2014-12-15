@@ -76,7 +76,7 @@ public class UserManagerController {
 			if(!myloginmanager.isAccountAccessible(account)) {
 				return new ResponseEntity<String>(myloginmanager.getErrorMessage(), HttpStatus.FORBIDDEN);
 			} else {
-				return new ResponseEntity<String>(HttpStatus.OK);
+				return new ResponseEntity<String>(HttpStatus.FORBIDDEN);
 			}
 		}
 

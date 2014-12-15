@@ -39,7 +39,7 @@ public class betting_stepdefs {
 	@Given("^I am a user who has not yet logged on$")
 	public void i_am_a_user_who_has_not_yet_logged_on() throws Throwable {
 		// Register User
-		System.setProperty("webdriver.chrome.driver", "impl\\src\\test\\resources\\chromedriver.exe");
+		System.setProperty("webdriver.chrome.driver", "src\\test\\resources\\chromedriver.exe");
 		browser = new ChromeDriver();
 		addUser(true);
 	}
@@ -47,7 +47,7 @@ public class betting_stepdefs {
 	@Given("^I am a user with a free account$")
 	public void i_am_a_user_with_username_with_a_free_account() throws Throwable {
 		// Register user
-		System.setProperty("webdriver.chrome.driver", "impl\\src\\test\\resources\\chromedriver.exe");
+		System.setProperty("webdriver.chrome.driver", "src\\test\\resources\\chromedriver.exe");
 		browser = new ChromeDriver();
 		addUser(false);
 
@@ -63,7 +63,7 @@ public class betting_stepdefs {
 	@Given("^I am a user with a premium account$")
 	public void i_am_a_user_with_a_premium_account() throws Throwable {
 		// Register
-		System.setProperty("webdriver.chrome.driver", "impl\\src\\test\\resources\\chromedriver.exe");
+		System.setProperty("webdriver.chrome.driver", "src\\test\\resources\\chromedriver.exe");
 		browser = new ChromeDriver();
 		addUser(true);
 

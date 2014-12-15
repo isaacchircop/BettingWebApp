@@ -44,7 +44,7 @@ public class register_stepdefs {
 	
 	@Given("^I am a user trying to register")
 	public void Testing() throws Throwable {
-		System.setProperty("webdriver.chrome.driver", "impl\\src\\test\\resources\\chromedriver.exe");
+		System.setProperty("webdriver.chrome.driver", "src\\test\\resources\\chromedriver.exe");
 		browser = new ChromeDriver();
 		registerpage = new RegisterPage(browser);
 	}
