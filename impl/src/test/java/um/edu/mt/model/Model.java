@@ -168,7 +168,7 @@ public class Model implements FsmModel {
 
 		try {
 			String urlParameters = "username=" + username +
-					  			   "&risk_Level=" + "low" +
+					  			   "&risk_level=" + "low" +
 								   "&amount=" + amount;
 
 			URL url = new URL("http://localhost:8080/bettingapp/placeBet");
@@ -197,14 +197,6 @@ public class Model implements FsmModel {
 		}
 		catch(Exception e){}
 
-	}
-
-	@Test
-	public void test() {
-		Tester t = new GreedyTester(new Model());
-		t.addListener(new VerboseListener());
-		t.generate(100);
-		t.buildGraph();
 	}
 
 }

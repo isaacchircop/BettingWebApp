@@ -39,6 +39,8 @@ public class UserManagerController {
 							  @RequestParam(value = "ccExpiry") final String ccExpiry,
 							  @RequestParam(value = "cvv") final String cvv) {
 		
+		System.out.println(username + " Register");
+		
 		DateFormat dobFormat = new SimpleDateFormat("yyyy-MM-DD");
 		DateFormat expiryFormat = new SimpleDateFormat("yyyy-MM");
 		
@@ -66,6 +68,8 @@ public class UserManagerController {
 	@RequestMapping (value = "/loginUser", method = RequestMethod.POST)
 	public ResponseEntity<String> loginUser(@RequestParam(value = "username") final String username,
 							@RequestParam(value = "password") final String password) {
+		
+		System.out.println(username + " Login");
 
 		myuser.setLoginManager(myloginmanager);
 
@@ -86,6 +90,8 @@ public class UserManagerController {
 	public ResponseEntity<String> placeBet(@RequestParam(value="username") final String username,
 										   @RequestParam(value="risk_level") final String risk_level,
 										   @RequestParam(value="amount") final String strAmount){
+		
+		System.out.println(username + " Place Bet");
 
 		Double amount = Double.parseDouble(strAmount);
 		RiskLevel risk = RiskLevel.valueOf(risk_level.toUpperCase());
