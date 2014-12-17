@@ -1,0 +1,21 @@
+
+Login Response Time
+username8892 0.0
+username8892 23.0
+username8892 8.0
+username9446 0.0
+username9446 20.0
+username9446 3.0
+username9446 11.0
+username2363 0.0
+username2363 19.0
+username2363 4.0
+username2363 17.0
+username6091 0.0
+username6091 15.0
+username6091 17.0
+username4150 0.0
+username4150 17.0
+username4150 16.0
+
+Average Response Time: 10.0

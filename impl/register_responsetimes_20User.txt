@@ -1,0 +1,24 @@
+
+Register Response Time
+username3263 16.0
+username2919 32.0
+username6080 47.0
+username17 32.0
+username1069 32.0
+username5711 47.0
+username8505 32.0
+username3523 32.0
+username7669 32.0
+username3448 63.0
+username3713 16.0
+username7386 32.0
+username2861 32.0
+username1539 63.0
+username2220 47.0
+username8691 63.0
+username4496 63.0
+username7220 32.0
+username8926 32.0
+username7500 47.0
+
+Average Response Time: 39.6

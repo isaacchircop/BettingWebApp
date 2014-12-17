@@ -12,6 +12,7 @@ import java.util.Random;
 
 import org.junit.Test;
 
+import edu.uci.ics.jung.graph.util.Pair;
 import net.sourceforge.czt.modeljunit.Action;
 import net.sourceforge.czt.modeljunit.AllRoundTester;
 import net.sourceforge.czt.modeljunit.FsmModel;
@@ -34,6 +35,12 @@ public class Model implements FsmModel {
 	private List<Bet> bets = new ArrayList<Bet>();
 
 	private Random random = new Random();
+	
+	public ArrayList<String> responseTimes = new ArrayList<String>();
+	
+	public ArrayList<Pair> registerResponseTime = new ArrayList<Pair>();
+	public ArrayList<Pair> betsResponseTime = new ArrayList<Pair>();
+	public ArrayList<Pair> loginResponseTime = new ArrayList<Pair>();
 
 	public State getState() {
 		if(username.equals("")) {
@@ -98,8 +105,13 @@ public class Model implements FsmModel {
 			OutputStreamWriter writer = new OutputStreamWriter(conn.getOutputStream());
 			writer.write(urlParameters);
 			writer.flush();
-
+			double startTime = System.currentTimeMillis();
 			BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+			double elapsedTime = System.currentTimeMillis() - startTime;
+			System.out.println("Elapsed Time: " + elapsedTime);
+			responseTimes.add(username+" Register "+ elapsedTime);	
+			Pair mypair = new Pair(username, elapsedTime);
+			registerResponseTime.add(mypair);
 			reader.close();
 			writer.close();
 		}
@@ -129,12 +141,17 @@ public class Model implements FsmModel {
 			URL url = new URL("http://localhost:8080/bettingapp/loginUser");
 			URLConnection conn = url.openConnection();
 			conn.setDoOutput(true);
-
+			
 			OutputStreamWriter writer = new OutputStreamWriter(conn.getOutputStream());
 			writer.write(urlParameters);
 			writer.flush();
-
+			double startTime = System.currentTimeMillis();
 			BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+			double elapsedTime = System.currentTimeMillis() - startTime;
+			System.out.println("Elapsed Time: " + elapsedTime);
+			responseTimes.add(username+" Login "+ elapsedTime);	
+			Pair mypair = new Pair(username, elapsedTime);
+			loginResponseTime.add(mypair);
 			String input = reader.readLine();
 			reader.close();
 			writer.close();
@@ -178,8 +195,13 @@ public class Model implements FsmModel {
 			OutputStreamWriter writer = new OutputStreamWriter(conn.getOutputStream());
 			writer.write(urlParameters);
 			writer.flush();
-
+			double startTime = System.currentTimeMillis();
 			BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+			double elapsedTime = System.currentTimeMillis() - startTime;
+			System.out.println("Elapsed Time: " + elapsedTime);
+			responseTimes.add(username+" Place Bet "+ elapsedTime);
+			Pair mypair = new Pair(username, elapsedTime);
+			betsResponseTime.add(mypair);
 			String input = reader.readLine();
 			reader.close();
 			writer.close();

@@ -1,0 +1,8 @@
+
+Register Response Time
+username9446 15.0
+username2363 15.0
+username6091 15.0
+username4150 15.0
+
+Average Response Time: 15.0

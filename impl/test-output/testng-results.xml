@@ -1,412 +1,136 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results skipped="0" failed="0" total="100" passed="100">
+<testng-results skipped="0" failed="0" total="30" passed="30">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="5957" started-at="2014-12-15T18:58:35Z" finished-at="2014-12-15T18:58:41Z">
+  <suite name="Default suite" duration-ms="997" started-at="2014-12-16T15:36:12Z" finished-at="2014-12-16T15:36:13Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="5957" started-at="2014-12-15T18:58:35Z" finished-at="2014-12-15T18:58:41Z">
+    <test name="Default test" duration-ms="997" started-at="2014-12-16T15:36:12Z" finished-at="2014-12-16T15:36:13Z">
       <class name="um.edu.mt.model.ModelRunner">
-        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@5c38c1]" name="test" duration-ms="4973" started-at="2014-12-15T19:58:35Z" finished-at="2014-12-15T19:58:40Z">
+        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@16a0733]" name="test" duration-ms="907" started-at="2014-12-16T16:36:12Z" finished-at="2014-12-16T16:36:13Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- test -->
-        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@5c38c1]" name="test" duration-ms="5624" started-at="2014-12-15T19:58:35Z" finished-at="2014-12-15T19:58:41Z">
+        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@16a0733]" name="test" duration-ms="563" started-at="2014-12-16T16:36:12Z" finished-at="2014-12-16T16:36:12Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- test -->
-        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@5c38c1]" name="test" duration-ms="5689" started-at="2014-12-15T19:58:35Z" finished-at="2014-12-15T19:58:41Z">
+        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@16a0733]" name="test" duration-ms="894" started-at="2014-12-16T16:36:12Z" finished-at="2014-12-16T16:36:13Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- test -->
-        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@5c38c1]" name="test" duration-ms="5658" started-at="2014-12-15T19:58:35Z" finished-at="2014-12-15T19:58:41Z">
+        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@16a0733]" name="test" duration-ms="857" started-at="2014-12-16T16:36:12Z" finished-at="2014-12-16T16:36:13Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- test -->
-        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@5c38c1]" name="test" duration-ms="5556" started-at="2014-12-15T19:58:35Z" finished-at="2014-12-15T19:58:41Z">
+        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@16a0733]" name="test" duration-ms="918" started-at="2014-12-16T16:36:12Z" finished-at="2014-12-16T16:36:13Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- test -->
-        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@5c38c1]" name="test" duration-ms="5603" started-at="2014-12-15T19:58:35Z" finished-at="2014-12-15T19:58:41Z">
+        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@16a0733]" name="test" duration-ms="840" started-at="2014-12-16T16:36:12Z" finished-at="2014-12-16T16:36:13Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- test -->
-        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@5c38c1]" name="test" duration-ms="5570" started-at="2014-12-15T19:58:35Z" finished-at="2014-12-15T19:58:41Z">
+        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@16a0733]" name="test" duration-ms="892" started-at="2014-12-16T16:36:12Z" finished-at="2014-12-16T16:36:13Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- test -->
-        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@5c38c1]" name="test" duration-ms="5602" started-at="2014-12-15T19:58:35Z" finished-at="2014-12-15T19:58:41Z">
+        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@16a0733]" name="test" duration-ms="841" started-at="2014-12-16T16:36:12Z" finished-at="2014-12-16T16:36:13Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- test -->
-        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@5c38c1]" name="test" duration-ms="5826" started-at="2014-12-15T19:58:35Z" finished-at="2014-12-15T19:58:41Z">
+        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@16a0733]" name="test" duration-ms="809" started-at="2014-12-16T16:36:12Z" finished-at="2014-12-16T16:36:13Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- test -->
-        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@5c38c1]" name="test" duration-ms="5497" started-at="2014-12-15T19:58:35Z" finished-at="2014-12-15T19:58:41Z">
+        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@16a0733]" name="test" duration-ms="799" started-at="2014-12-16T16:36:12Z" finished-at="2014-12-16T16:36:13Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- test -->
-        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@5c38c1]" name="test" duration-ms="5754" started-at="2014-12-15T19:58:35Z" finished-at="2014-12-15T19:58:41Z">
+        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@16a0733]" name="test" duration-ms="817" started-at="2014-12-16T16:36:12Z" finished-at="2014-12-16T16:36:13Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- test -->
-        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@5c38c1]" name="test" duration-ms="5302" started-at="2014-12-15T19:58:35Z" finished-at="2014-12-15T19:58:40Z">
+        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@16a0733]" name="test" duration-ms="773" started-at="2014-12-16T16:36:12Z" finished-at="2014-12-16T16:36:13Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- test -->
-        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@5c38c1]" name="test" duration-ms="5869" started-at="2014-12-15T19:58:35Z" finished-at="2014-12-15T19:58:41Z">
+        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@16a0733]" name="test" duration-ms="720" started-at="2014-12-16T16:36:12Z" finished-at="2014-12-16T16:36:12Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- test -->
-        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@5c38c1]" name="test" duration-ms="5268" started-at="2014-12-15T19:58:35Z" finished-at="2014-12-15T19:58:40Z">
+        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@16a0733]" name="test" duration-ms="865" started-at="2014-12-16T16:36:12Z" finished-at="2014-12-16T16:36:13Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- test -->
-        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@5c38c1]" name="test" duration-ms="5563" started-at="2014-12-15T19:58:35Z" finished-at="2014-12-15T19:58:41Z">
+        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@16a0733]" name="test" duration-ms="875" started-at="2014-12-16T16:36:12Z" finished-at="2014-12-16T16:36:13Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- test -->
-        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@5c38c1]" name="test" duration-ms="5731" started-at="2014-12-15T19:58:35Z" finished-at="2014-12-15T19:58:41Z">
+        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@16a0733]" name="test" duration-ms="816" started-at="2014-12-16T16:36:12Z" finished-at="2014-12-16T16:36:13Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- test -->
-        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@5c38c1]" name="test" duration-ms="5811" started-at="2014-12-15T19:58:35Z" finished-at="2014-12-15T19:58:41Z">
+        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@16a0733]" name="test" duration-ms="892" started-at="2014-12-16T16:36:12Z" finished-at="2014-12-16T16:36:13Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- test -->
-        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@5c38c1]" name="test" duration-ms="5230" started-at="2014-12-15T19:58:35Z" finished-at="2014-12-15T19:58:40Z">
+        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@16a0733]" name="test" duration-ms="920" started-at="2014-12-16T16:36:12Z" finished-at="2014-12-16T16:36:13Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- test -->
-        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@5c38c1]" name="test" duration-ms="5705" started-at="2014-12-15T19:58:35Z" finished-at="2014-12-15T19:58:41Z">
+        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@16a0733]" name="test" duration-ms="676" started-at="2014-12-16T16:36:12Z" finished-at="2014-12-16T16:36:12Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- test -->
-        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@5c38c1]" name="test" duration-ms="5660" started-at="2014-12-15T19:58:35Z" finished-at="2014-12-15T19:58:41Z">
+        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@16a0733]" name="test" duration-ms="861" started-at="2014-12-16T16:36:12Z" finished-at="2014-12-16T16:36:13Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- test -->
-        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@5c38c1]" name="test" duration-ms="4780" started-at="2014-12-15T19:58:35Z" finished-at="2014-12-15T19:58:40Z">
+        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@16a0733]" name="test" duration-ms="677" started-at="2014-12-16T16:36:12Z" finished-at="2014-12-16T16:36:12Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- test -->
-        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@5c38c1]" name="test" duration-ms="5726" started-at="2014-12-15T19:58:35Z" finished-at="2014-12-15T19:58:41Z">
+        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@16a0733]" name="test" duration-ms="887" started-at="2014-12-16T16:36:12Z" finished-at="2014-12-16T16:36:13Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- test -->
-        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@5c38c1]" name="test" duration-ms="5554" started-at="2014-12-15T19:58:35Z" finished-at="2014-12-15T19:58:41Z">
+        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@16a0733]" name="test" duration-ms="728" started-at="2014-12-16T16:36:12Z" finished-at="2014-12-16T16:36:12Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- test -->
-        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@5c38c1]" name="test" duration-ms="5513" started-at="2014-12-15T19:58:35Z" finished-at="2014-12-15T19:58:41Z">
+        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@16a0733]" name="test" duration-ms="929" started-at="2014-12-16T16:36:12Z" finished-at="2014-12-16T16:36:13Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- test -->
-        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@5c38c1]" name="test" duration-ms="5553" started-at="2014-12-15T19:58:35Z" finished-at="2014-12-15T19:58:41Z">
+        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@16a0733]" name="test" duration-ms="731" started-at="2014-12-16T16:36:12Z" finished-at="2014-12-16T16:36:12Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- test -->
-        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@5c38c1]" name="test" duration-ms="5723" started-at="2014-12-15T19:58:35Z" finished-at="2014-12-15T19:58:41Z">
+        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@16a0733]" name="test" duration-ms="916" started-at="2014-12-16T16:36:12Z" finished-at="2014-12-16T16:36:13Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- test -->
-        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@5c38c1]" name="test" duration-ms="5753" started-at="2014-12-15T19:58:35Z" finished-at="2014-12-15T19:58:41Z">
+        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@16a0733]" name="test" duration-ms="656" started-at="2014-12-16T16:36:12Z" finished-at="2014-12-16T16:36:12Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- test -->
-        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@5c38c1]" name="test" duration-ms="5424" started-at="2014-12-15T19:58:35Z" finished-at="2014-12-15T19:58:40Z">
+        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@16a0733]" name="test" duration-ms="869" started-at="2014-12-16T16:36:12Z" finished-at="2014-12-16T16:36:13Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- test -->
-        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@5c38c1]" name="test" duration-ms="5496" started-at="2014-12-15T19:58:35Z" finished-at="2014-12-15T19:58:41Z">
+        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@16a0733]" name="test" duration-ms="725" started-at="2014-12-16T16:36:12Z" finished-at="2014-12-16T16:36:13Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- test -->
-        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@5c38c1]" name="test" duration-ms="5889" started-at="2014-12-15T19:58:35Z" finished-at="2014-12-15T19:58:41Z">
+        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@16a0733]" name="test" duration-ms="673" started-at="2014-12-16T16:36:12Z" finished-at="2014-12-16T16:36:12Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- test -->
-        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@5c38c1]" name="test" duration-ms="5421" started-at="2014-12-15T19:58:35Z" finished-at="2014-12-15T19:58:40Z">
+        <test-method status="PASS" signature="output_responsetimes()[pri:0, instance:um.edu.mt.model.ModelRunner@16a0733]" name="output_responsetimes" is-config="true" duration-ms="8" started-at="2014-12-16T16:36:13Z" finished-at="2014-12-16T16:36:13Z">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- test -->
-        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@5c38c1]" name="test" duration-ms="5502" started-at="2014-12-15T19:58:35Z" finished-at="2014-12-15T19:58:41Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- test -->
-        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@5c38c1]" name="test" duration-ms="5630" started-at="2014-12-15T19:58:35Z" finished-at="2014-12-15T19:58:41Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- test -->
-        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@5c38c1]" name="test" duration-ms="5613" started-at="2014-12-15T19:58:35Z" finished-at="2014-12-15T19:58:41Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- test -->
-        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@5c38c1]" name="test" duration-ms="5470" started-at="2014-12-15T19:58:35Z" finished-at="2014-12-15T19:58:41Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- test -->
-        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@5c38c1]" name="test" duration-ms="5508" started-at="2014-12-15T19:58:35Z" finished-at="2014-12-15T19:58:41Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- test -->
-        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@5c38c1]" name="test" duration-ms="5107" started-at="2014-12-15T19:58:35Z" finished-at="2014-12-15T19:58:40Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- test -->
-        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@5c38c1]" name="test" duration-ms="5106" started-at="2014-12-15T19:58:35Z" finished-at="2014-12-15T19:58:40Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- test -->
-        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@5c38c1]" name="test" duration-ms="5394" started-at="2014-12-15T19:58:35Z" finished-at="2014-12-15T19:58:40Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- test -->
-        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@5c38c1]" name="test" duration-ms="5455" started-at="2014-12-15T19:58:35Z" finished-at="2014-12-15T19:58:41Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- test -->
-        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@5c38c1]" name="test" duration-ms="5251" started-at="2014-12-15T19:58:35Z" finished-at="2014-12-15T19:58:40Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- test -->
-        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@5c38c1]" name="test" duration-ms="5133" started-at="2014-12-15T19:58:35Z" finished-at="2014-12-15T19:58:40Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- test -->
-        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@5c38c1]" name="test" duration-ms="5672" started-at="2014-12-15T19:58:35Z" finished-at="2014-12-15T19:58:41Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- test -->
-        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@5c38c1]" name="test" duration-ms="5434" started-at="2014-12-15T19:58:35Z" finished-at="2014-12-15T19:58:41Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- test -->
-        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@5c38c1]" name="test" duration-ms="5295" started-at="2014-12-15T19:58:35Z" finished-at="2014-12-15T19:58:40Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- test -->
-        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@5c38c1]" name="test" duration-ms="5774" started-at="2014-12-15T19:58:35Z" finished-at="2014-12-15T19:58:41Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- test -->
-        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@5c38c1]" name="test" duration-ms="5502" started-at="2014-12-15T19:58:35Z" finished-at="2014-12-15T19:58:41Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- test -->
-        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@5c38c1]" name="test" duration-ms="5158" started-at="2014-12-15T19:58:35Z" finished-at="2014-12-15T19:58:40Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- test -->
-        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@5c38c1]" name="test" duration-ms="5142" started-at="2014-12-15T19:58:35Z" finished-at="2014-12-15T19:58:40Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- test -->
-        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@5c38c1]" name="test" duration-ms="5722" started-at="2014-12-15T19:58:35Z" finished-at="2014-12-15T19:58:41Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- test -->
-        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@5c38c1]" name="test" duration-ms="5574" started-at="2014-12-15T19:58:35Z" finished-at="2014-12-15T19:58:41Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- test -->
-        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@5c38c1]" name="test" duration-ms="5536" started-at="2014-12-15T19:58:35Z" finished-at="2014-12-15T19:58:41Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- test -->
-        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@5c38c1]" name="test" duration-ms="5431" started-at="2014-12-15T19:58:35Z" finished-at="2014-12-15T19:58:41Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- test -->
-        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@5c38c1]" name="test" duration-ms="5759" started-at="2014-12-15T19:58:35Z" finished-at="2014-12-15T19:58:41Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- test -->
-        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@5c38c1]" name="test" duration-ms="5087" started-at="2014-12-15T19:58:35Z" finished-at="2014-12-15T19:58:40Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- test -->
-        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@5c38c1]" name="test" duration-ms="5071" started-at="2014-12-15T19:58:35Z" finished-at="2014-12-15T19:58:40Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- test -->
-        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@5c38c1]" name="test" duration-ms="5264" started-at="2014-12-15T19:58:35Z" finished-at="2014-12-15T19:58:40Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- test -->
-        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@5c38c1]" name="test" duration-ms="5310" started-at="2014-12-15T19:58:35Z" finished-at="2014-12-15T19:58:40Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- test -->
-        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@5c38c1]" name="test" duration-ms="5428" started-at="2014-12-15T19:58:35Z" finished-at="2014-12-15T19:58:41Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- test -->
-        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@5c38c1]" name="test" duration-ms="5331" started-at="2014-12-15T19:58:35Z" finished-at="2014-12-15T19:58:40Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- test -->
-        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@5c38c1]" name="test" duration-ms="5670" started-at="2014-12-15T19:58:35Z" finished-at="2014-12-15T19:58:41Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- test -->
-        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@5c38c1]" name="test" duration-ms="5468" started-at="2014-12-15T19:58:35Z" finished-at="2014-12-15T19:58:41Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- test -->
-        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@5c38c1]" name="test" duration-ms="5437" started-at="2014-12-15T19:58:35Z" finished-at="2014-12-15T19:58:41Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- test -->
-        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@5c38c1]" name="test" duration-ms="5153" started-at="2014-12-15T19:58:35Z" finished-at="2014-12-15T19:58:40Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- test -->
-        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@5c38c1]" name="test" duration-ms="5419" started-at="2014-12-15T19:58:35Z" finished-at="2014-12-15T19:58:41Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- test -->
-        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@5c38c1]" name="test" duration-ms="5567" started-at="2014-12-15T19:58:35Z" finished-at="2014-12-15T19:58:41Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- test -->
-        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@5c38c1]" name="test" duration-ms="5266" started-at="2014-12-15T19:58:35Z" finished-at="2014-12-15T19:58:40Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- test -->
-        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@5c38c1]" name="test" duration-ms="5547" started-at="2014-12-15T19:58:35Z" finished-at="2014-12-15T19:58:41Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- test -->
-        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@5c38c1]" name="test" duration-ms="5460" started-at="2014-12-15T19:58:35Z" finished-at="2014-12-15T19:58:41Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- test -->
-        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@5c38c1]" name="test" duration-ms="5676" started-at="2014-12-15T19:58:35Z" finished-at="2014-12-15T19:58:41Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- test -->
-        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@5c38c1]" name="test" duration-ms="5026" started-at="2014-12-15T19:58:35Z" finished-at="2014-12-15T19:58:40Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- test -->
-        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@5c38c1]" name="test" duration-ms="5006" started-at="2014-12-15T19:58:35Z" finished-at="2014-12-15T19:58:40Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- test -->
-        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@5c38c1]" name="test" duration-ms="5057" started-at="2014-12-15T19:58:35Z" finished-at="2014-12-15T19:58:40Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- test -->
-        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@5c38c1]" name="test" duration-ms="5386" started-at="2014-12-15T19:58:35Z" finished-at="2014-12-15T19:58:41Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- test -->
-        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@5c38c1]" name="test" duration-ms="5494" started-at="2014-12-15T19:58:35Z" finished-at="2014-12-15T19:58:41Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- test -->
-        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@5c38c1]" name="test" duration-ms="5508" started-at="2014-12-15T19:58:35Z" finished-at="2014-12-15T19:58:41Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- test -->
-        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@5c38c1]" name="test" duration-ms="5624" started-at="2014-12-15T19:58:35Z" finished-at="2014-12-15T19:58:41Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- test -->
-        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@5c38c1]" name="test" duration-ms="5517" started-at="2014-12-15T19:58:35Z" finished-at="2014-12-15T19:58:41Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- test -->
-        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@5c38c1]" name="test" duration-ms="5322" started-at="2014-12-15T19:58:35Z" finished-at="2014-12-15T19:58:40Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- test -->
-        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@5c38c1]" name="test" duration-ms="5632" started-at="2014-12-15T19:58:35Z" finished-at="2014-12-15T19:58:41Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- test -->
-        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@5c38c1]" name="test" duration-ms="5717" started-at="2014-12-15T19:58:35Z" finished-at="2014-12-15T19:58:41Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- test -->
-        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@5c38c1]" name="test" duration-ms="5045" started-at="2014-12-15T19:58:35Z" finished-at="2014-12-15T19:58:40Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- test -->
-        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@5c38c1]" name="test" duration-ms="5268" started-at="2014-12-15T19:58:35Z" finished-at="2014-12-15T19:58:40Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- test -->
-        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@5c38c1]" name="test" duration-ms="5163" started-at="2014-12-15T19:58:35Z" finished-at="2014-12-15T19:58:40Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- test -->
-        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@5c38c1]" name="test" duration-ms="5116" started-at="2014-12-15T19:58:35Z" finished-at="2014-12-15T19:58:40Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- test -->
-        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@5c38c1]" name="test" duration-ms="5290" started-at="2014-12-15T19:58:35Z" finished-at="2014-12-15T19:58:40Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- test -->
-        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@5c38c1]" name="test" duration-ms="5631" started-at="2014-12-15T19:58:35Z" finished-at="2014-12-15T19:58:41Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- test -->
-        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@5c38c1]" name="test" duration-ms="5321" started-at="2014-12-15T19:58:35Z" finished-at="2014-12-15T19:58:40Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- test -->
-        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@5c38c1]" name="test" duration-ms="5429" started-at="2014-12-15T19:58:35Z" finished-at="2014-12-15T19:58:41Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- test -->
-        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@5c38c1]" name="test" duration-ms="5575" started-at="2014-12-15T19:58:35Z" finished-at="2014-12-15T19:58:41Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- test -->
-        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@5c38c1]" name="test" duration-ms="5467" started-at="2014-12-15T19:58:35Z" finished-at="2014-12-15T19:58:41Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- test -->
-        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@5c38c1]" name="test" duration-ms="5615" started-at="2014-12-15T19:58:35Z" finished-at="2014-12-15T19:58:41Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- test -->
-        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@5c38c1]" name="test" duration-ms="5116" started-at="2014-12-15T19:58:35Z" finished-at="2014-12-15T19:58:40Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- test -->
-        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@5c38c1]" name="test" duration-ms="4956" started-at="2014-12-15T19:58:35Z" finished-at="2014-12-15T19:58:40Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- test -->
-        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@5c38c1]" name="test" duration-ms="5185" started-at="2014-12-15T19:58:35Z" finished-at="2014-12-15T19:58:40Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- test -->
-        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@5c38c1]" name="test" duration-ms="5501" started-at="2014-12-15T19:58:35Z" finished-at="2014-12-15T19:58:41Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- test -->
-        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@5c38c1]" name="test" duration-ms="5547" started-at="2014-12-15T19:58:35Z" finished-at="2014-12-15T19:58:41Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- test -->
-        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@5c38c1]" name="test" duration-ms="5029" started-at="2014-12-15T19:58:35Z" finished-at="2014-12-15T19:58:40Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- test -->
-        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@5c38c1]" name="test" duration-ms="5475" started-at="2014-12-15T19:58:35Z" finished-at="2014-12-15T19:58:41Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- test -->
-        <test-method status="PASS" signature="test()[pri:0, instance:um.edu.mt.model.ModelRunner@5c38c1]" name="test" duration-ms="5516" started-at="2014-12-15T19:58:35Z" finished-at="2014-12-15T19:58:41Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- test -->
+        </test-method> <!-- output_responsetimes -->
       </class> <!-- um.edu.mt.model.ModelRunner -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
