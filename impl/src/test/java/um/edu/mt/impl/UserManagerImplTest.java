@@ -7,7 +7,11 @@ import static org.mockito.Matchers.anyDouble;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import java.io.FileInputStream;
+import java.io.ObjectInputStream;
 import java.util.Calendar;
+import java.util.List;
+import java.util.Map;
 
 import org.junit.After;
 import org.junit.Before;
@@ -27,12 +31,13 @@ public class UserManagerImplTest {
 
 	@Before
 	public void setup() {
-		manager = new UserManagerImpl();
+		manager = new UserManagerImpl("", "");
 	}
 
 	@After
 	public void teardown() {
 		manager = null;
+
 	}
 
 	@Test
@@ -51,12 +56,11 @@ public class UserManagerImplTest {
 
 		// Start Test
 		int usersBefore = manager.getNumberOfUsers();
-		manager.registerUser("Username", "Password123", "Name", "Surname",
+		manager.registerUser("leomessironaldo", "Password123", "Name", "Surname",
 				date, false, "346026622135281", ccExpiry, "123");
 		int usersAfter = manager.getNumberOfUsers();
 
-		assertTrue("Size of mapping should be incremented by 1",
-				usersAfter == usersBefore + 1);
+		assertTrue(usersAfter == usersBefore + 1);
 	}
 
 	@Test
@@ -88,8 +92,14 @@ public class UserManagerImplTest {
 				loginmanager.isPasswordCorrect(any(UserAccount.class),
 						anyString())).thenReturn(true);
 		manager.setLoginManager(loginmanager);
+		
+		// Create mock user validator
+				UserValidator validator = mock(UserValidator.class);
+				when(validator.validateAccount(any(UserAccount.class)))
+						.thenReturn(true);
+				manager.setUserValidator(validator);
 
-		assertTrue(manager.login("joseph", "1010101010101"));
+		assertTrue(manager.login("toni", "12345678"));
 
 	}
 
@@ -104,33 +114,74 @@ public class UserManagerImplTest {
 						anyString())).thenReturn(false);
 		manager.setLoginManager(loginmanager);
 
-		assertFalse(manager.login("joseph", "1010101010101"));
+		assertFalse(manager.login("toni", "1010101010101"));
 	}
-
+	
 	@Test
-	public void LogOutTest_Successful() {
-		// Setup of values
+	public void LoginTest_UnSuccessful_UserNonExistent() {
+		// Create mock login manager
+		LoginManager loginmanager = mock(LoginManager.class);
+		when(loginmanager.login(any(UserAccount.class), anyString()))
+				.thenReturn(false);
+		when(
+				loginmanager.isPasswordCorrect(any(UserAccount.class),
+						anyString())).thenReturn(false);
+		manager.setLoginManager(loginmanager);
+
+		assertFalse(manager.login("useruser", "1010101010101"));
+	}
+	
+	@Test
+	public void LogOut(){
+		
+		//Set Mock LoginManager
+		LoginManager loginmanager = mock(LoginManager.class);
+		when(loginmanager.login(any(UserAccount.class), anyString()))
+				.thenReturn(true);
+		when(
+				loginmanager.isPasswordCorrect(any(UserAccount.class),
+						anyString())).thenReturn(true);
+		manager.setLoginManager(loginmanager);
+		
+		// Create mock user validator
+				UserValidator validator = mock(UserValidator.class);
+				when(validator.validateAccount(any(UserAccount.class)))
+						.thenReturn(true);
+				manager.setUserValidator(validator);
+
 		Calendar date = Calendar.getInstance();
 		Calendar ccExpiry = Calendar.getInstance();
 		date.set(1990, 5, 30);
 		ccExpiry.set(2016, 12, 12);
-
-		UserAccount account = new UserAccountImpl("Username", "Password123",
-				"Name", "Surname", date, false, "346026622135281", ccExpiry,
-				"123");
-		manager.setLoggedinUser(account);
-		assertTrue(manager.logout());
+		manager.registerUser("toni", "12345678", "joseph", "bonucci", date, false, "4000056655665556", ccExpiry, "123");
+		
+		manager.login("toni", "12345678");
+		manager.logout("toni");
+		assertFalse(manager.getUserAccount("toni").isLoggedIn());
 	}
+	
+	@Test
+	public void getBetsForUser(){
+		
+		//Set Mock LoginManager
+		LoginManager loginmanager = mock(LoginManager.class);
+		manager.setLoginManager(loginmanager);
+		
+		// Create mock bet validator
+		BetValidator validator = mock(BetValidator.class);
+		when(validator.validateBet(any(UserAccount.class),any(RiskLevel.class), anyDouble())).thenReturn(true);
+		manager.setBetValidator(validator);
 
-	@Test(expected = IllegalStateException.class)
-	public void LogOutTest_UnSuccessful() {
-		// Setup of values
-		manager.logout();
+		manager.login("mario", "12345678");
+		manager.bets.clear();
+		manager.placeBet("mario", RiskLevel.LOW, 2);
+		manager.placeBet("mario", RiskLevel.LOW, 2);
+		assertTrue(manager.getBetsForUser("mario").size()==2);
 	}
-
+	
 	@Test
 	public void placeBetTest_Successful() {
-		// Create mock user validator
+		// Create mock bet validator
 		BetValidator validator = mock(BetValidator.class);
 		when(validator.validateBet(any(UserAccount.class),any(RiskLevel.class), anyDouble())).thenReturn(true);
 		manager.setBetValidator(validator);
@@ -140,12 +191,11 @@ public class UserManagerImplTest {
 	
 	@Test
 	public void placeBetTest_UnSuccessful() {
-		// Create mock user validator
+		// Create mock bet validator
 		BetValidator validator = mock(BetValidator.class);
 		when(validator.validateBet(any(UserAccount.class),any(RiskLevel.class), anyDouble())).thenReturn(false);
 		manager.setBetValidator(validator);
 
 		assertFalse(manager.placeBet("joseph", RiskLevel.LOW, 10.5));
 	}
-
 }

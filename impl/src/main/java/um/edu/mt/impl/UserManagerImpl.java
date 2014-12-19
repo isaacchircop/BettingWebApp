@@ -1,5 +1,9 @@
 package um.edu.mt.impl;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -20,9 +24,30 @@ public class UserManagerImpl implements UserManager {
 	private LoginManager loginManager;
 	private BetValidator betValidator;
 	
-	private UserAccount loggedInUser;
-	private static Map<String, UserAccount> users = new HashMap<String, UserAccount>();
-	private static List<BetImpl> bets = new ArrayList<BetImpl>();
+	public static Map<String, UserAccount> users = new HashMap<String, UserAccount>();
+	public static List<BetImpl> bets = new ArrayList<BetImpl>();
+	
+	public static String betsfile;
+	public static String usersfile;
+	
+	public UserManagerImpl(String betsf, String usersf){
+		
+		betsfile = betsf;
+		usersfile = usersf;
+		
+		try
+		{
+		ObjectInputStream inpbets = new ObjectInputStream(new FileInputStream(betsfile));
+		bets = (List<BetImpl>)inpbets.readObject();
+		inpbets.close();
+		
+		ObjectInputStream inpusrs = new ObjectInputStream(new FileInputStream(usersfile));
+		users = (Map<String, UserAccount>)inpusrs.readObject();
+		inpusrs.close();
+		}
+		catch(Exception E){}
+		
+	}
 	
 	// Setters
 	public void setUserValidator(UserValidator validator) {
@@ -36,11 +61,7 @@ public class UserManagerImpl implements UserManager {
 	public void setBetValidator(BetValidator validator) {
 		this.betValidator = validator;
 	}
-	
-	public void setLoggedinUser(UserAccount useraccount) {
-		this.loggedInUser = useraccount;
-	}
-	
+		
 	// Getters
 	
 	public UserAccount getUserAccount(String username) {
@@ -73,6 +94,7 @@ public class UserManagerImpl implements UserManager {
 		
 		if (userValidator.validateAccount(newAccount)) {
 			users.put(username, newAccount);
+			saveUsersToFile(usersfile);
 			return true;
 		} else {
 			return false;
@@ -80,31 +102,52 @@ public class UserManagerImpl implements UserManager {
 	}
 	
 	public boolean login(String username, String password) {
-		
 		UserAccount account = users.get(username);
-		
-		boolean loginAttempt = loginManager.login(account, password);
-		
-		this.loggedInUser = loginAttempt ? account : null;		
-		return loginAttempt;
-		
+		if(account!=null)
+		{
+			boolean loginAttempt = loginManager.login(account, password);
+			account.setLoggedIn(loginAttempt);
+			return loginAttempt;
+		}
+		else return false;
 	}
 	
 	public boolean placeBet(String username, RiskLevel riskLevel, double amount) {
 		
 		if (betValidator.validateBet(users.get(username), riskLevel, amount)) {
-			bets.add(new BetImpl(username, riskLevel, amount));
+			BetImpl new_bet = new BetImpl(username, riskLevel, amount);
+			bets.add(new_bet);
+			saveBetsToFile(betsfile);
 			return true;
 		} else return false;
 		
 	}
 	
-	public boolean logout() {
-		if (loggedInUser != null) {
-			return true;
-		} else {
-			throw new IllegalStateException("Cannot logout from a non-existing user session");
+	public void logout(String username) {
+		UserAccount account = users.get(username);
+		account.setLoggedIn(false);
+	}
+	
+	public void saveBetsToFile(String filename) 
+	{
+		try
+		{
+		ObjectOutputStream oout = new ObjectOutputStream(new FileOutputStream(filename));
+		oout.writeObject(bets);
+		oout.close();
 		}
+		catch(Exception E){}
+	}
+	
+	public void saveUsersToFile(String filename) 
+	{
+		try
+		{
+		ObjectOutputStream oout = new ObjectOutputStream(new FileOutputStream(filename));
+		oout.writeObject(users);
+		oout.close();
+		}
+		catch(Exception E){}
 	}
 
 }

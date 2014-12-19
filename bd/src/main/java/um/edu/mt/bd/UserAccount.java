@@ -30,6 +30,9 @@ public interface UserAccount {
 
 	public String getCvv();
 	public void setCvv(String cvv);
+	
+	public boolean isLoggedIn();
+	public void setLoggedIn(boolean logged);
 
 	public boolean isBlocked();
 	public void block();

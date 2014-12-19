@@ -9,8 +9,14 @@ import org.testng.annotations.Test;
 
 import edu.uci.ics.jung.graph.util.Pair;
 import net.sourceforge.czt.modeljunit.GreedyTester;
+import net.sourceforge.czt.modeljunit.LookaheadTester;
+import net.sourceforge.czt.modeljunit.RandomTester;
 import net.sourceforge.czt.modeljunit.Tester;
 import net.sourceforge.czt.modeljunit.VerboseListener;
+import net.sourceforge.czt.modeljunit.coverage.ActionCoverage;
+import net.sourceforge.czt.modeljunit.coverage.StateCoverage;
+import net.sourceforge.czt.modeljunit.coverage.TransitionCoverage;
+import net.sourceforge.czt.modeljunit.coverage.TransitionPairCoverage;
 
 public class ModelRunner {
 	
@@ -19,6 +25,7 @@ public class ModelRunner {
 	public ArrayList<Pair> registerResponseTime = new ArrayList<Pair>();
 	public ArrayList<Pair> betsResponseTime = new ArrayList<Pair>();
 	public ArrayList<Pair> loginResponseTime = new ArrayList<Pair>();
+	public ArrayList<Pair> logoutResponseTime = new ArrayList<Pair>(); 
 	
 	@AfterClass
 	public void output_responsetimes()
@@ -27,7 +34,7 @@ public class ModelRunner {
 		double total = 0;
 		double avg = 0;
 		try {
-			out = new PrintWriter("register_responsetimes_30User.txt");		
+			out = new PrintWriter("register_responsetimes_5User.txt");		
 			out.println("\nRegister Response Time");
 			for(Pair p : registerResponseTime)
 			{
@@ -44,7 +51,7 @@ public class ModelRunner {
 			
 			out.close();
 			
-			out = new PrintWriter("login_responsetimes_30User.txt");
+			out = new PrintWriter("login_responsetimes_5User.txt");
 			out.println("\nLogin Response Time");
 			
 			for(Pair p : loginResponseTime)
@@ -62,7 +69,7 @@ public class ModelRunner {
 			
 			out.close();
 			
-			out = new PrintWriter("bets_responsetimes_30User.txt");
+			out = new PrintWriter("bets_responsetimes_5User.txt");
 			out.println("\nPlace Bet Response Time");
 			for(Pair p : betsResponseTime)
 			{
@@ -71,11 +78,25 @@ public class ModelRunner {
 				total = total + ((Double)(p.getSecond())).doubleValue();
 			}
 			
+			
 			avg = total/betsResponseTime.size();
 			out.println("\nAverage Response Time: " + avg);
-			
+			out.close();
+						
 			avg = 0.0;
 			total = 0.0;
+			
+			out = new PrintWriter("logout_responsetimes_5User.txt");
+			out.println("\nLog Out Response Time");
+			for(Pair p : logoutResponseTime)
+			{
+				out.print(p.getFirst()+ " ");
+				out.println(String.valueOf(p.getSecond()));
+				total = total + ((Double)(p.getSecond())).doubleValue();
+			}
+			
+			avg = total/logoutResponseTime.size();
+			out.println("\nAverage Response Time: " + avg);
 			
 			out.close();
 				
@@ -83,12 +104,27 @@ public class ModelRunner {
 			{e.printStackTrace();}
 	}
 	
-	@Test(threadPoolSize = 30, invocationCount = 30)
+	@Test(threadPoolSize = 1, invocationCount = 1)
 	public void test() {
 		Model mymodel = new Model();
-		Tester t = new GreedyTester(mymodel);
-		t.addListener(new VerboseListener());
-		t.generate(10);
+		
+		TransitionCoverage tran = new TransitionCoverage();
+		TransitionPairCoverage tranp = new TransitionPairCoverage();
+		StateCoverage stat = new StateCoverage();
+		ActionCoverage act = new ActionCoverage();
+
+		//Tester t = new GreedyTester(mymodel);
+		//Tester t = new RandomTester(mymodel);
+		Tester t = new LookaheadTester(mymodel);
+		t.addCoverageMetric(tran);
+		t.addCoverageMetric(stat);
+		t.addCoverageMetric(act);
+		t.addCoverageMetric(tranp);
+		
+		//t.addListener(new VerboseListener());
+		t.generate(20);
+		t.buildGraph();
+		t.printCoverage();
 		
 		for(Pair p : mymodel.registerResponseTime)
 		{
@@ -103,6 +139,11 @@ public class ModelRunner {
 		for(Pair p : mymodel.betsResponseTime)
 		{
 			betsResponseTime.add(p);	
+		}
+		
+		for(Pair p : mymodel.logoutResponseTime)
+		{
+			logoutResponseTime.add(p);	
 		}
 	}
 

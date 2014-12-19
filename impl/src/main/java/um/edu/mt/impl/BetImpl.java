@@ -1,10 +1,13 @@
 package um.edu.mt.impl;
 
+import java.io.Serializable;
+
 import um.edu.mt.bd.Bet;
 import um.edu.mt.bd.RiskLevel;
 
-public class BetImpl implements Bet{
+public class BetImpl implements Bet, Serializable{
 
+	private static final long serialVersionUID = 1L;
 	private String username;
 	private RiskLevel riskLevel;
 	private double amount;
@@ -37,10 +40,6 @@ public class BetImpl implements Bet{
 
 	public void setAmount(double amount) {
 		this.amount = amount;
-	}
-	
-	public String toString(){
-		return this.riskLevel + "," + this.amount;
 	}
 	
 }

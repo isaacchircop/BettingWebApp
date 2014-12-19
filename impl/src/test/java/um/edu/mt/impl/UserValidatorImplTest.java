@@ -32,6 +32,11 @@ public class UserValidatorImplTest {
 	};
 	
 	@Test
+	public void errormsg_empty() {
+		assertTrue(validator.getErrorMessage().equals(""));
+	}
+	
+	@Test
 	public void validUsernameTest() {
 		UserManager userManager = mock(UserManager.class);
 		when(userManager.getUserAccount(anyString())).thenReturn(null);

@@ -6,7 +6,7 @@ import um.edu.mt.bd.UserAccount;
 public class LoginManagerImpl implements LoginManager {
 	
 	private final long UNBLOCKTIME = 300000;
-	private String errorMessage;
+	private String errorMessage ="";
 	
 	public boolean login(UserAccount account, String password) {
 		return isAccountAccessible(account) &&

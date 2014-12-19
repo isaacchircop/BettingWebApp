@@ -1,11 +1,13 @@
 package um.edu.mt.impl;
 
+import java.io.Serializable;
 import java.util.Calendar;
 
 import um.edu.mt.bd.UserAccount;
 
-public class UserAccountImpl implements UserAccount {
-	
+public class UserAccountImpl implements UserAccount, Serializable {
+
+	private static final long serialVersionUID = 1L;
 	private String username;
 	private String password;
 	private String name;
@@ -20,6 +22,16 @@ public class UserAccountImpl implements UserAccount {
 	private int loginTries;
 	private long blockTime;
 	
+	private boolean isLoggedIn;
+	
+	public boolean isLoggedIn() {
+		return isLoggedIn;
+	}
+
+	public void setLoggedIn(boolean isLoggedIn) {
+		this.isLoggedIn = isLoggedIn;
+	}
+
 	public UserAccountImpl(String username, String password, String name,
 			String surname, Calendar date, boolean isPremium, String ccNumber,
 			Calendar ccExpiry, String cvv) {
@@ -34,6 +46,7 @@ public class UserAccountImpl implements UserAccount {
 		this.cvv = cvv;
 		this.isBlocked = false;
 		this.loginTries = 0;
+		isLoggedIn = false;
 	}
 
 	public String getUsername() {

@@ -29,6 +29,11 @@ public class LoginManagerImplTest {
 	}
 	
 	@Test
+	public void errormsg_empty() {
+		assertTrue(manager.getErrorMessage().equals(""));
+	}
+	
+	@Test
 	public void isAccountExistent_TestNonExistentAccount(){
 		assertFalse("Account should not exist", manager.isAccountExistent(null));
 	}

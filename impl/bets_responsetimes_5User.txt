@@ -1,16 +1,10 @@
 
 Place Bet Response Time
-username9446 17.0
-username9446 15.0
-username9446 17.0
-username9446 18.0
-username2363 17.0
-username2363 15.0
-username2363 29.0
-username6091 17.0
-username6091 7.0
-username6091 0.0
-username4150 17.0
-username4150 27.0
+username1254 16.0
+username1254 0.0
+username1254 15.0
+username1255 15.0
+username1255 16.0
+username1255 16.0
 
-Average Response Time: 16.333333333333332
+Average Response Time: 13.0

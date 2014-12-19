@@ -10,15 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import org.junit.Test;
-
 import edu.uci.ics.jung.graph.util.Pair;
 import net.sourceforge.czt.modeljunit.Action;
-import net.sourceforge.czt.modeljunit.AllRoundTester;
 import net.sourceforge.czt.modeljunit.FsmModel;
-import net.sourceforge.czt.modeljunit.GreedyTester;
-import net.sourceforge.czt.modeljunit.Tester;
-import net.sourceforge.czt.modeljunit.VerboseListener;
 import um.edu.mt.bd.Bet;
 import um.edu.mt.bd.RiskLevel;
 import um.edu.mt.impl.BetImpl;
@@ -41,22 +35,15 @@ public class Model implements FsmModel {
 	public ArrayList<Pair> registerResponseTime = new ArrayList<Pair>();
 	public ArrayList<Pair> betsResponseTime = new ArrayList<Pair>();
 	public ArrayList<Pair> loginResponseTime = new ArrayList<Pair>();
+	public ArrayList<Pair> logoutResponseTime = new ArrayList<Pair>();
 
 	public State getState() {
-		if(username.equals("")) {
-			// Not registered
+		if(username.equals(""))
 			return State.WAIT_FOR_REGISTER;
-		}
-
-		if(!isLoggedIn) {
-			// Registered yet not logged in
+		else if(!isLoggedIn)
 			return State.WAIT_FOR_LOGIN;
-		}
-
-		if(isLoggedIn)
+		else 
 			return State.WAIT_FOR_BET;
-		
-		return null;
 	}
 
 	public void reset(boolean arg0) {
@@ -108,7 +95,6 @@ public class Model implements FsmModel {
 			double startTime = System.currentTimeMillis();
 			BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 			double elapsedTime = System.currentTimeMillis() - startTime;
-			System.out.println("Elapsed Time: " + elapsedTime);
 			responseTimes.add(username+" Register "+ elapsedTime);	
 			Pair mypair = new Pair(username, elapsedTime);
 			registerResponseTime.add(mypair);
@@ -148,7 +134,6 @@ public class Model implements FsmModel {
 			double startTime = System.currentTimeMillis();
 			BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 			double elapsedTime = System.currentTimeMillis() - startTime;
-			System.out.println("Elapsed Time: " + elapsedTime);
 			responseTimes.add(username+" Login "+ elapsedTime);	
 			Pair mypair = new Pair(username, elapsedTime);
 			loginResponseTime.add(mypair);
@@ -166,7 +151,25 @@ public class Model implements FsmModel {
 	}
 	@Action
 	public void logout() {
-		isLoggedIn = false;
+		try {
+			String urlParameters = "username=" + username;
+			URL url = new URL("http://localhost:8080/bettingapp/logOut");
+			URLConnection conn = url.openConnection();
+			conn.setDoOutput(true);
+			OutputStreamWriter writer = new OutputStreamWriter(conn.getOutputStream());
+			writer.write(urlParameters);
+			writer.flush();
+			double startTime = System.currentTimeMillis();
+			BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+			double elapsedTime = System.currentTimeMillis() - startTime;
+			responseTimes.add(username+" Place Bet "+ elapsedTime);
+			Pair mypair = new Pair(username, elapsedTime);
+			logoutResponseTime.add(mypair);
+			reader.close();
+			writer.close();
+			isLoggedIn = false;
+		}
+		catch(Exception e){}
 	}
 
 	public boolean placeBetGuard() {
@@ -198,7 +201,6 @@ public class Model implements FsmModel {
 			double startTime = System.currentTimeMillis();
 			BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 			double elapsedTime = System.currentTimeMillis() - startTime;
-			System.out.println("Elapsed Time: " + elapsedTime);
 			responseTimes.add(username+" Place Bet "+ elapsedTime);
 			Pair mypair = new Pair(username, elapsedTime);
 			betsResponseTime.add(mypair);
@@ -206,14 +208,11 @@ public class Model implements FsmModel {
 			reader.close();
 			writer.close();
 
-			if (input == null) {
-				// Bet accepted by server
-				bets.add(new BetImpl(username, RiskLevel.LOW, amount));
-			}
+			bets.add(new BetImpl(username, RiskLevel.LOW, amount));
 			
 			double placeanother = random.nextDouble();
 			if (placeanother < PROB_PLACEANOTHER) {
-				isLoggedIn = false;
+				logout();
 			} 
 
 		}

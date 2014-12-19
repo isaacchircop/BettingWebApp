@@ -182,6 +182,7 @@ public class BetValidatorImplTest {
 		
 		UserAccount account = mock(UserAccount.class);
 		when(account.isPremium()).thenReturn(false);
+		when(account.isLoggedIn()).thenReturn(true);
 		
 		validator.setUserManager(manager);
 		
@@ -221,10 +222,36 @@ public class BetValidatorImplTest {
 		
 		UserAccount account = mock(UserAccount.class);
 		when(account.isPremium()).thenReturn(true);
-		
+		when(account.isLoggedIn()).thenReturn(true);
 		validator.setUserManager(manager);
 		
 		assertTrue(validator.validateBet(account, RiskLevel.HIGH, 500));
+	}
+	
+	@Test
+	public void validateBet_TestInvalidAmountPremiumUser() {
+		UserManager manager = mock(UserManager.class);
+		when(manager.getBetsForUser(anyString())).thenReturn(new ArrayList<Bet>());
+		
+		UserAccount account = mock(UserAccount.class);
+		when(account.isPremium()).thenReturn(true);
+		when(account.isLoggedIn()).thenReturn(true);
+		validator.setUserManager(manager);
+		
+		assertFalse(validator.validateBet(account, RiskLevel.HIGH, 10000));
+	}
+	
+	@Test
+	public void validateBet_LoggedOutUser() {
+		UserManager manager = mock(UserManager.class);
+		when(manager.getBetsForUser(anyString())).thenReturn(new ArrayList<Bet>());
+		
+		UserAccount account = mock(UserAccount.class);
+		when(account.isPremium()).thenReturn(true);
+		when(account.isLoggedIn()).thenReturn(false);
+		validator.setUserManager(manager);
+		
+		assertFalse(validator.validateBet(account, RiskLevel.HIGH, 500));
 	}
 	
 }

@@ -25,7 +25,7 @@ import um.edu.mt.impl.UserValidatorImpl;
 @RestController
 public class UserManagerController {
 	
-	private UserManager myuser = new UserManagerImpl();
+	private UserManager myuser = new UserManagerImpl("bets.dat", "users.dat");
 	private LoginManager myloginmanager = new LoginManagerImpl();
 
 	@RequestMapping (value = "/registerUser", method = RequestMethod.POST)
@@ -61,7 +61,6 @@ public class UserManagerController {
 
 		boolean regSuccess = myuser.registerUser(username, password, name, surname, dobCal, isPremium, ccNumber, expCal, cvv);
 		return new ResponseEntity<HttpStatus>((regSuccess) ? HttpStatus.OK : HttpStatus.NOT_ACCEPTABLE);
-
 	}
 
 	
@@ -129,6 +128,14 @@ public class UserManagerController {
 	@RequestMapping(value = "/getBets", method = RequestMethod.GET)
 	public List<Bet> getBets(@RequestParam(value="username") final String username)	{
 		return myuser.getBetsForUser(username);
+	}
+	
+	@RequestMapping(value = "/logOut", method = RequestMethod.POST)
+	public ResponseEntity<String> placeBet(@RequestParam(value="username") final String username){
+			System.out.println(username + " LogOut");
+			myuser.logout(username);
+			return new ResponseEntity<String>(HttpStatus.OK);
+		
 	}
 
 }
