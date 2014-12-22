@@ -21,7 +21,7 @@ public class LoginManagerImpl implements LoginManager {
 					account.resetLoginTries();
 					return true;
 				} else {
-					errorMessage = "Account is blocked.  Try again within " + account.unblkTimeLeft() / 1000 + " seconds";
+					errorMessage = "Account is blocked.  Try again within " + (300 - (account.unblkTimeLeft() / 1000)) + " seconds";
 					return false;
 				}
 			} else {
