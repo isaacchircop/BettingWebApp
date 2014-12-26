@@ -1,6 +1,0 @@
-
-Register Response Time
-username1254 31.0
-username1255 15.0
-
-Average Response Time: 23.0

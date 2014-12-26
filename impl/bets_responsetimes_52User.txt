@@ -1,0 +1,4 @@
+
+Place Bet Response Time
+
+Average Response Time: NaN

@@ -8,6 +8,7 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
 
 import edu.uci.ics.jung.graph.util.Pair;
+import net.sourceforge.czt.modeljunit.AllRoundTester;
 import net.sourceforge.czt.modeljunit.GreedyTester;
 import net.sourceforge.czt.modeljunit.LookaheadTester;
 import net.sourceforge.czt.modeljunit.RandomTester;
@@ -34,7 +35,7 @@ public class ModelRunner {
 		double total = 0;
 		double avg = 0;
 		try {
-			out = new PrintWriter("register_responsetimes_5User.txt");		
+			out = new PrintWriter("register_responsetimes_1User.txt");		
 			out.println("\nRegister Response Time");
 			for(Pair p : registerResponseTime)
 			{
@@ -51,7 +52,7 @@ public class ModelRunner {
 			
 			out.close();
 			
-			out = new PrintWriter("login_responsetimes_5User.txt");
+			out = new PrintWriter("login_responsetimes_1User.txt");
 			out.println("\nLogin Response Time");
 			
 			for(Pair p : loginResponseTime)
@@ -69,7 +70,7 @@ public class ModelRunner {
 			
 			out.close();
 			
-			out = new PrintWriter("bets_responsetimes_5User.txt");
+			out = new PrintWriter("bets_responsetimes_1User.txt");
 			out.println("\nPlace Bet Response Time");
 			for(Pair p : betsResponseTime)
 			{
@@ -86,7 +87,7 @@ public class ModelRunner {
 			avg = 0.0;
 			total = 0.0;
 			
-			out = new PrintWriter("logout_responsetimes_5User.txt");
+			out = new PrintWriter("logout_responsetimes_1User.txt");
 			out.println("\nLog Out Response Time");
 			for(Pair p : logoutResponseTime)
 			{
@@ -104,27 +105,29 @@ public class ModelRunner {
 			{e.printStackTrace();}
 	}
 	
-	@Test(threadPoolSize = 1, invocationCount = 1)
+	@Test(threadPoolSize = 50, invocationCount = 50)
 	public void test() {
 		Model mymodel = new Model();
 		
 		TransitionCoverage tran = new TransitionCoverage();
-		TransitionPairCoverage tranp = new TransitionPairCoverage();
 		StateCoverage stat = new StateCoverage();
 		ActionCoverage act = new ActionCoverage();
 
-		//Tester t = new GreedyTester(mymodel);
-		//Tester t = new RandomTester(mymodel);
 		Tester t = new LookaheadTester(mymodel);
+		//Tester t = new RandomTester(mymodel);
+		//Tester t = new GreedyTester(mymodel);
+		//Tester t = new AllRoundTester(mymodel);
 		t.addCoverageMetric(tran);
 		t.addCoverageMetric(stat);
 		t.addCoverageMetric(act);
-		t.addCoverageMetric(tranp);
 		
-		//t.addListener(new VerboseListener());
-		t.generate(20);
+		t.addListener(new VerboseListener());
+		
+		t.generate(15);
 		t.buildGraph();
+		//System.out.println("Transitions "+tran.getDetails());
 		t.printCoverage();
+		
 		
 		for(Pair p : mymodel.registerResponseTime)
 		{

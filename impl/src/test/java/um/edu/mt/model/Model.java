@@ -4,15 +4,27 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import org.junit.Test;
+import org.junit.rules.ExpectedException;
+import org.junit.Assert;
+import org.junit.Assert;
+
 import edu.uci.ics.jung.graph.util.Pair;
 import net.sourceforge.czt.modeljunit.Action;
 import net.sourceforge.czt.modeljunit.FsmModel;
+import net.sourceforge.czt.modeljunit.LookaheadTester;
+import net.sourceforge.czt.modeljunit.Tester;
+import net.sourceforge.czt.modeljunit.VerboseListener;
+import net.sourceforge.czt.modeljunit.coverage.ActionCoverage;
+import net.sourceforge.czt.modeljunit.coverage.StateCoverage;
+import net.sourceforge.czt.modeljunit.coverage.TransitionCoverage;
 import um.edu.mt.bd.Bet;
 import um.edu.mt.bd.RiskLevel;
 import um.edu.mt.impl.BetImpl;
@@ -53,7 +65,6 @@ public class Model implements FsmModel {
 		isLoggedIn = false;
 	}
 
-
 	public boolean registerGuard(){
 		return getState() == State.WAIT_FOR_REGISTER;
 	}
@@ -92,6 +103,8 @@ public class Model implements FsmModel {
 			OutputStreamWriter writer = new OutputStreamWriter(conn.getOutputStream());
 			writer.write(urlParameters);
 			writer.flush();
+			
+			Assert.assertTrue(((HttpURLConnection) conn).getResponseMessage().equals("OK"));
 			double startTime = System.currentTimeMillis();
 			BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 			double elapsedTime = System.currentTimeMillis() - startTime;
@@ -100,8 +113,10 @@ public class Model implements FsmModel {
 			registerResponseTime.add(mypair);
 			reader.close();
 			writer.close();
+			
 		}
-		catch(IOException e){}
+		catch(IOException e){
+		}
 	}
 
 	public boolean loginGuard(){
@@ -109,8 +124,9 @@ public class Model implements FsmModel {
 	}
 	@Action
 	public void login() {
+		
 		try {
-
+			
 			// Calculate chance of performing successful login
 			String password = "";
 			double invalidLoginChance = random.nextDouble();
@@ -119,6 +135,7 @@ public class Model implements FsmModel {
 			} else {
 				password = this.password;
 			}
+			
 
 			// Attempt login
 			String urlParameters = "username=" + username +
@@ -131,6 +148,15 @@ public class Model implements FsmModel {
 			OutputStreamWriter writer = new OutputStreamWriter(conn.getOutputStream());
 			writer.write(urlParameters);
 			writer.flush();
+			
+			if(invalidLoginChance < 0.25)
+			{
+				Assert.assertTrue(((HttpURLConnection) conn).getResponseMessage().equals("Forbidden"));
+			}
+			else {
+				Assert.assertTrue(((HttpURLConnection) conn).getResponseMessage().equals("OK"));
+			}			
+			
 			double startTime = System.currentTimeMillis();
 			BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 			double elapsedTime = System.currentTimeMillis() - startTime;
@@ -140,6 +166,7 @@ public class Model implements FsmModel {
 			String input = reader.readLine();
 			reader.close();
 			writer.close();
+			Assert.assertTrue(input == null);
 			if(input == null)
 				isLoggedIn = true;
 		}
@@ -159,6 +186,7 @@ public class Model implements FsmModel {
 			OutputStreamWriter writer = new OutputStreamWriter(conn.getOutputStream());
 			writer.write(urlParameters);
 			writer.flush();
+			Assert.assertTrue(((HttpURLConnection) conn).getResponseMessage().equals("OK"));
 			double startTime = System.currentTimeMillis();
 			BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 			double elapsedTime = System.currentTimeMillis() - startTime;
@@ -198,6 +226,9 @@ public class Model implements FsmModel {
 			OutputStreamWriter writer = new OutputStreamWriter(conn.getOutputStream());
 			writer.write(urlParameters);
 			writer.flush();
+
+			Assert.assertTrue( ((HttpURLConnection) conn).getResponseMessage().equals("Accepted") || ((HttpURLConnection) conn).getResponseMessage().equals("Forbidden"));
+			
 			double startTime = System.currentTimeMillis();
 			BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 			double elapsedTime = System.currentTimeMillis() - startTime;
@@ -207,7 +238,7 @@ public class Model implements FsmModel {
 			String input = reader.readLine();
 			reader.close();
 			writer.close();
-
+			
 			bets.add(new BetImpl(username, RiskLevel.LOW, amount));
 			
 			double placeanother = random.nextDouble();
@@ -219,5 +250,23 @@ public class Model implements FsmModel {
 		catch(Exception e){}
 
 	}
+	
+	@Test
+	public void test() {
+		Model mymodel = new Model();
+		
+		TransitionCoverage tran = new TransitionCoverage();
+		StateCoverage stat = new StateCoverage();
+		ActionCoverage act = new ActionCoverage();
+
+		Tester t = new LookaheadTester(mymodel);
+		t.addListener(new VerboseListener());
+		t.generate(15);
+		t.buildGraph();
+		//System.out.println("Transitions "+tran.getDetails());
+		t.printCoverage();
+		
+	}
+	
 
 }

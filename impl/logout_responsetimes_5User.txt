@@ -1,9 +1,0 @@
-
-Log Out Response Time
-username1254 15.0
-username1254 16.0
-username1254 15.0
-username1255 16.0
-username1255 16.0
-
-Average Response Time: 15.6
